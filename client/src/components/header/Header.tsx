@@ -1,11 +1,22 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 
-export default function Header() {
+import './header.scss'
+
+export default function Header({isOpen}:any) {
   return (
-    <>
-    <h3>Header</h3>
-    <Link to = '/games'>Games</Link>
-    </>
+    <header>
+      <nav>
+        <div className="logo"></div>
+        <form>
+          <label htmlFor="search">
+            <input type="text" />
+            <button>Search</button>
+          </label>
+        </form>
+        <button type="button" onClick={isOpen}>Login</button>
+      </nav>
+    </header>
+
   )
 }

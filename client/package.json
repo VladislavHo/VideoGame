@@ -2,7 +2,7 @@
   "name": "my-webpack-project",
   "version": "1.0.0",
   "description": "My webpack project",
-  "main": "index.ts",
+  "main": "index.tsx",
   "scripts": {
     "build": "webpack --mode=production --node-env=production",
     "build:dev": "webpack --mode=development",
@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/react": "^17.0.38",
     "@types/redux": "^3.6.0",
     "@webpack-cli/generators": "^2.4.1",
     "clean-webpack-plugin": "^4.0.0",
@@ -33,6 +34,7 @@
   "dependencies": {
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-hook-form": "^7.24.1",
     "react-router-dom": "^6.2.1",
     "redux": "^4.1.2",
     "redux-thunk": "^2.4.1"

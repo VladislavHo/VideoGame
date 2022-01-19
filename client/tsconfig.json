@@ -9,5 +9,5 @@
     "alwaysStrict": true,
     "jsx": "react"
   },
-  "files": ["src/index.ts"]
+  "files": ["src/index.tsx"]
 }
