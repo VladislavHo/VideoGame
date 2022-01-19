@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import {Link} from 'react-router-dom'
 
 import './header.scss'
 
 export default function Header({isOpen}:any) {
+  const {firstName, lastName} = useSelector((data:any) => data.user)
   return (
     <header>
       <nav>
@@ -14,7 +16,8 @@ export default function Header({isOpen}:any) {
             <button>Search</button>
           </label>
         </form>
-        <button type="button" onClick={isOpen}>Login</button>
+        <button type="button" onClick={isOpen}>Login</button>)
+        
       </nav>
     </header>
 

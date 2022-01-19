@@ -1,18 +1,22 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import createUser from '../../store/requests'
+
 
 export default function PopapUserForm({isClose}:any) {
+  const dispatch = useDispatch()
   const {
     register,
     formState: { errors, isValid },
     handleSubmit,
     reset,
-  }: any = useForm({
+  } = useForm({
     mode: "onBlur",
   });
 
   const onSubmit = (data) => {
-    console.log(data);
+    dispatch(createUser(data))
     reset();
     isClose()
   };
@@ -62,3 +66,4 @@ export default function PopapUserForm({isClose}:any) {
     </form>
   );
 }
+
