@@ -7,12 +7,18 @@ export type AllActions = {
   type: typeof Actions.UPDATE_USERINFO; payload: IUserInfo
 }
 
-export default function reducers(state:IStore = initialStore, actions) {
+export default function reducers(state: IStore = initialStore, actions) {
   switch (actions.type) {
     case Actions.UPDATE_USERINFO:
-      console.log(actions.payload)
-      return { ...state, user : {...actions.payload} };
-  
+      return { ...state, user: { ...actions.payload } };
+    case Actions.UPDATE_IS_AUTH:
+      return { ...state, isAuth: actions.payload }
+    case Actions.UPDATE_SEARCH_GAME:
+      return { ...state, dataGames: { ...state.dataGames, searchGames: actions.paylaod } }
+    case Actions.GETTING_GENRES:
+      return { ...state, dataGames: { ...state.dataGames, genres: actions.paylaod } }
+    case Actions.UPDATE_GAMES_ON_GENRES:
+      return { ...state, dataGames: { ...state.dataGames, gamesOnGenrs: actions.paylaod } }
     default:
       return state
   }
