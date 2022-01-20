@@ -11,10 +11,14 @@ import AboutGame from "./components/about-game/AboutGame";
 import { gettingGenres } from "./store/requests";
 import Genres from './pages/Genres'
 import GamesOnGenres from './pages/GamesOnGenres'
+import Basket from './pages/Basket'
+import { dataGames } from "./store/initialStore";
 
 export default function App() {
   const dispatch = useDispatch()
-  const { searchGames, genres, gamesOnGenrs } = useSelector((data: any) => data.dataGames);
+  const { dataGames, basket } = useSelector((data: any) => data);
+  const {searchGames, genres, gamesOnGenrs} = dataGames
+
   const [isOpenPopap, setIsOpenPopap] = useState({
     isUserForm: false,
     isGameForm: false,
@@ -22,11 +26,9 @@ export default function App() {
   const [aboutGame, setAboutGame] = useState({});
 
   const limit = {
-    searchLimit: searchGames.splice(0, 3),
-    genresLimit: genres.splice(0, 6)
+    searchLimit: searchGames.slice(0, 3),
+    genresLimit: genres.slice(0, 6)
   }
-
-
 
 
   const getAboutGame = (game) => setAboutGame(game);
@@ -46,6 +48,7 @@ export default function App() {
       dispatch(gettingGenres())
     }, [])
 
+    console.log('basket', basket)
   return (
     <>
       <BrowserRouter>
@@ -65,11 +68,13 @@ export default function App() {
           <Route path="/" element={<Main limit ={limit.genresLimit}/>} />
           <Route
             path="/games"
-            element={<Games games={searchGames} aboutGame={getAboutGame} />}
+            element={<Games games={searchGames} aboutGame={getAboutGame}/>}
           />
+          
           <Route path="/games/:id" element={<AboutGame game={aboutGame} />} />
           <Route path="/genres" element ={<Genres genres ={genres}/>}/>
           <Route path="/genres/:id" element ={<GamesOnGenres games ={gamesOnGenrs} aboutGame = {getAboutGame}/>}/>
+          <Route path ="/basket" element = {<Basket games={basket} aboutGame = {getAboutGame}/>}/>
         </Routes>
       </BrowserRouter>
     </>

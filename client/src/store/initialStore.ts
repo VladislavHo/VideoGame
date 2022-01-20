@@ -1,5 +1,5 @@
 
-import { IGames, IStore, IUserInfo } from "./types/store-types";
+import { IBasket, IGames, IStore, IUserInfo } from "./types/store-types";
 
 export const user:IUserInfo = {
   firstName: '',
@@ -9,6 +9,8 @@ export const user:IUserInfo = {
   _id: ''
 
 }
+
+export const basket:IBasket[] = []
 
 export const isAuth:boolean = false
 
@@ -21,6 +23,7 @@ export const dataGames:IGames = {
 export const initialStore:IStore = {
   isAuth,
   user,
+  basket,
   dataGames,
   
 }

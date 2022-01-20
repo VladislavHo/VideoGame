@@ -1,13 +1,12 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { UpdateIsAuthAction } from "../../store/actions";
 import createUser from '../../store/requests'
 
 
 export default function PopapUserForm({isClose}:any) {
   const dispatch = useDispatch()
-  
   const {
     register,
     formState: { errors, isValid },
@@ -26,7 +25,7 @@ export default function PopapUserForm({isClose}:any) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <button onClick={isClose}>Х</button>
+      
       <label htmlFor="firstName">
         First Name:
         <input
@@ -67,6 +66,7 @@ export default function PopapUserForm({isClose}:any) {
       <button type="submit" disabled={!isValid}>
         Ok
       </button>
+      <button onClick={isClose}>Х</button>
     </form>
   );
 }

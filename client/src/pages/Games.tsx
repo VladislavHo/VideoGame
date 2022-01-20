@@ -1,23 +1,26 @@
-import React, { useState } from 'react'
-import { useStore } from 'react-redux'
-import { Link, Route, Routes } from 'react-router-dom'
-import AboutGame from '../components/about-game/AboutGame'
+import React from "react";
+import { useDispatch, useSelector, useStore } from "react-redux";
+import { Link} from "react-router-dom";
+import ButtonLike from '../components/buttonLike/ButtonLike'
 
-export default function Games({games, aboutGame}) {
-
+export default function Games({ games, aboutGame }) {
+  const dispatch = useDispatch();
+  const { searchGames } = useSelector((data: any) => data.dataGames);
 
   return (
     <>
-    <h3>Games</h3>
-    <ul>
-    {games.map((el, i) => (
-      <li key={el.id + el.name}>
-        <Link to={`/games/${el.id}`} onClick={()=> aboutGame(games[i])}>
-          {el.name}
-        </Link>
-      </li>
-))}
-    </ul>
+      <h3>Games</h3>
+      <ul>
+        {games.map((el, i) => (
+          <li key={el.id + el.name}>
+            <Link to={`/games/${el.id}`} onClick={() => aboutGame(el)}>
+              {el.name}
+            </Link>
+            <ButtonLike game ={el}/>
+          </li>
+        ))}
+      </ul>
     </>
-  )
+  );
 }
+// 

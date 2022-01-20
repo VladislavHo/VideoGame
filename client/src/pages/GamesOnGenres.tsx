@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import ButtonLike from '../components/buttonLike/ButtonLike'
 
 export default function GamesOnGenres({games, aboutGame}) {
   return (
@@ -8,11 +9,13 @@ export default function GamesOnGenres({games, aboutGame}) {
     <ul>
     {
       games.map((el, i) => (
-        <li>
-          <Link to={`/games/${el.id}`} onClick={()=> aboutGame(games[i])}>
+        <li key={el.name + el.id}> 
+          <Link to={`/games/${el.id}`} onClick={()=> aboutGame(el)}>
             {el.name}
           </Link>
+          <ButtonLike game ={el}/>
         </li>
+        
       ))
     }
     </ul>

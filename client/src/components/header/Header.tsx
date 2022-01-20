@@ -20,6 +20,7 @@ export default function Header({ isOpenUserForm, isOpenSearchGames, isCloseSearc
         <div className="logo"></div>
         
         <Search isOpen = {isOpenSearchGames}/>
+        <Link to='/basket'>Basket</Link>
         {isAuth ? (
           <div className="login_ponel">
             <p>{firstName}</p>

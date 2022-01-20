@@ -1,4 +1,4 @@
-import { initialStore, user } from "./initialStore";
+import { basket, initialStore, user } from "./initialStore";
 import { Actions } from "./types/action-types";
 import { IStore, IUserInfo } from "./types/store-types";
 
@@ -14,12 +14,16 @@ export default function reducers(state: IStore = initialStore, actions) {
     case Actions.UPDATE_IS_AUTH:
       return { ...state, isAuth: actions.payload }
     case Actions.UPDATE_SEARCH_GAME:
-      return { ...state, dataGames: { ...state.dataGames, searchGames: actions.paylaod } }
+      return { ...state, dataGames: { ...state.dataGames, searchGames: actions.payload } }
     case Actions.GETTING_GENRES:
-      return { ...state, dataGames: { ...state.dataGames, genres: actions.paylaod } }
+      return { ...state, dataGames: { ...state.dataGames, genres: actions.payload } }
     case Actions.UPDATE_GAMES_ON_GENRES:
-      return { ...state, dataGames: { ...state.dataGames, gamesOnGenrs: actions.paylaod } }
+      return { ...state, dataGames: { ...state.dataGames, gamesOnGenrs: actions.payload } }
+    case Actions.UPDATE_BASKET:
+      return { ...state, basket: [...state.basket, actions.payload] }
     default:
       return state
   }
 }
+
+// { ...state.dataGames.searchGames: searchGames: actions.payload }

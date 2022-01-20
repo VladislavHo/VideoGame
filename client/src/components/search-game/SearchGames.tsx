@@ -17,7 +17,7 @@ export default function SearchGames({isCloseSearchGames, games, aboutGame}) {
         <Link to={`/games/${el.id}`} onClick={()=> handleClickLinks(games[i])}>{el.name}</Link>
       </li>
       ))}
-      <Link to='/games' onClick={isCloseSearchGames}>More</Link>
+      <Link to='/games' onClick={isCloseSearchGames}>More...</Link>
     </ul>
 
     </>
