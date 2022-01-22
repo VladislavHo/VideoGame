@@ -3,14 +3,14 @@ require('dotenv').config()
 
 class GettingDataIGDB{
   async getGameSearch(req, res) {
-    const {game, genresID = null} = req.body
+    const {game = null, id = null} = req.body
     try{
       const response = await igdb(
         process.env.YOUR_TWITCH_CLIENT_ID,
         process.env.YOUR_TWITCH_APP_ACCESS_TOKEN
         )
-        .fields(['name'])
-        .where(genresID)
+        .fields(['name', 'screenshots.*'])
+        .where(id)
         .limit(500)
         .search(game)
         .request('/games')

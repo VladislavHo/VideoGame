@@ -19,6 +19,8 @@ export default function reducers(state: IStore = initialStore, actions) {
       return { ...state, dataGames: { ...state.dataGames, genres: actions.payload } }
     case Actions.UPDATE_GAMES_ON_GENRES:
       return { ...state, dataGames: { ...state.dataGames, gamesOnGenrs: actions.payload } }
+    case Actions.GETTING_MAIN_GAMES:
+      return { ...state, dataGames: { ...state.dataGames, mainGames: actions.payload } }
     case Actions.UPDATE_BASKET:
       return { ...state, basket: [...state.basket, actions.payload] }
     default:

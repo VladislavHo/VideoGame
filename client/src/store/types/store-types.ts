@@ -18,6 +18,7 @@ export interface IGames{
   searchGames: any[]
   genres: any[],
   gamesOnGenrs: any[],
+  mainGames: any[]
 }
 
 export interface IStore{

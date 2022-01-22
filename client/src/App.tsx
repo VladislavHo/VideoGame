@@ -8,7 +8,7 @@ import SearchGames from "./components/search-game/SearchGames";
 import "./style.scss";
 import { useDispatch, useSelector } from "react-redux";
 import AboutGame from "./components/about-game/AboutGame";
-import { gettingGenres } from "./store/requests";
+import { getMainGames, gettingGenres } from "./store/requests";
 import Genres from './pages/Genres'
 import GamesOnGenres from './pages/GamesOnGenres'
 import Basket from './pages/Basket'
@@ -17,7 +17,7 @@ import { dataGames } from "./store/initialStore";
 export default function App() {
   const dispatch = useDispatch()
   const { dataGames, basket } = useSelector((data: any) => data);
-  const {searchGames, genres, gamesOnGenrs} = dataGames
+  const {searchGames, genres, gamesOnGenrs, mainGames} = dataGames
 
   const [isOpenPopap, setIsOpenPopap] = useState({
     isUserForm: false,
@@ -45,10 +45,10 @@ export default function App() {
 
 
     useEffect(()=>{
+      dispatch(getMainGames()) 
       dispatch(gettingGenres())
     }, [])
 
-    console.log('basket', basket)
   return (
     <>
       <BrowserRouter>
@@ -65,7 +65,7 @@ export default function App() {
           />
         )}
         <Routes>
-          <Route path="/" element={<Main limit ={limit.genresLimit}/>} />
+          <Route path="/" element={<Main limit ={limit.genresLimit} games = {mainGames} aboutGame = {getAboutGame}/>} />
           <Route
             path="/games"
             element={<Games games={searchGames} aboutGame={getAboutGame}/>}

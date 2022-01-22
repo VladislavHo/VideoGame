@@ -42,3 +42,9 @@ export function UpdateBasketAction(payload) {
     payload
   }
 }
+export function UpdateMainGamesAction(payload) {
+  return{
+    type: Actions.GETTING_MAIN_GAMES,
+    payload
+  }
+}

@@ -1,7 +1,8 @@
 import axios from "axios"
 import { AnyAction } from "redux"
 import { ThunkDispatch } from "redux-thunk"
-import {GettingGenresAction, UpdateGameOnGenresAction, UpdateSearchGamesAction, UpdateUserAction} from './actions'
+import {GettingGenresAction, UpdateGameOnGenresAction, UpdateMainGamesAction, UpdateSearchGamesAction, UpdateUserAction} from './actions'
+import { MAIN_GAME_ID } from "./initialStore"
 import { IStore } from "./types/store-types"
 
 const URL = 'http://localhost:5000/api'
@@ -20,20 +21,35 @@ export default function createUser(user) {
   }
 }
 
-export function searchGames(game, idGenres = null) {
+export function searchGames(game, id = null) {
   return async(
     dispatch
   )=>{
     try {
       await axios.post(`${URL}/search-games`, {
         game,
-        idGenres
+        id
       }).then(games => dispatch(UpdateSearchGamesAction(games.data)))
     } catch (error) {
       console.log(error.message)
     }
   }
 }
+
+export function getMainGames() {
+  return async(
+    dispatch
+  ) =>{
+    try {
+      await axios.post(`${URL}/search-games`, {
+          id: MAIN_GAME_ID
+      }).then(games => dispatch(UpdateMainGamesAction(games.data)))
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+}
+
 
 export function gettingGenres() {
   return async (dispatch)=>{

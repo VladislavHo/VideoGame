@@ -17,7 +17,8 @@ export const isAuth:boolean = false
 export const dataGames:IGames = {
   searchGames: [],
   genres: [],
-  gamesOnGenrs: []
+  gamesOnGenrs: [],
+  mainGames: []
 }
 
 export const initialStore:IStore = {
@@ -27,3 +28,5 @@ export const initialStore:IStore = {
   dataGames,
   
 }
+
+export const MAIN_GAME_ID = [`id = (1020, 1942, 28028, 142803, 25076)`]

@@ -2,7 +2,8 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { gameOnGenres } from "../store/requests";
-
+import Image from '../components/images/Image'
+import ButtonLike from '../components/button-like/ButtonLike'
 
 
 export default function Genres({ genres }) {
@@ -16,6 +17,7 @@ export default function Genres({ genres }) {
           <Link to={`/genres/${el.slug}`} onClick={()=> dispatch(gameOnGenres(el.id))}>
             {el.name}
           </Link>
+
         </li>
         ))}
       </ul>

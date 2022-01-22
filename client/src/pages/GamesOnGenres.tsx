@@ -1,8 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import ButtonLike from '../components/buttonLike/ButtonLike'
+import ButtonLike from '../components/button-like/ButtonLike'
+import Images from '../components/images/Image'
 
 export default function GamesOnGenres({games, aboutGame}) {
+  console.log(games)
   return (
     <>
     <h3>Games on genres</h3>
@@ -13,7 +15,8 @@ export default function GamesOnGenres({games, aboutGame}) {
           <Link to={`/games/${el.id}`} onClick={()=> aboutGame(el)}>
             {el.name}
           </Link>
-          <ButtonLike game ={el}/>
+            <Images image = {el}/>
+            <ButtonLike game ={el}/>
         </li>
         
       ))
