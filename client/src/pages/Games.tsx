@@ -3,7 +3,7 @@ import { useDispatch, useSelector, useStore } from "react-redux";
 import { Link} from "react-router-dom";
 import { MyContext } from "../App";
 import ButtonLike from '../components/button-like/ButtonLike'
-import Image from '../components/images/Image'
+import Image from '../components/images/Images'
 
 
 export default function Games({  aboutGame }) {

@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { gameOnGenres } from "../store/api";
-import Image from '../components/images/Image'
+import Image from '../components/images/Images'
 import ButtonLike from '../components/button-like/ButtonLike'
 import { MyContext } from "../App";
 

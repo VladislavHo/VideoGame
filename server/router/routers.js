@@ -1,15 +1,17 @@
 const Router = require('express').Router
 const User = require("../controllers/user")
-const GettingDataIGDB = require("../controllers/getting-game-data")
+const GamesIGDB = require("../controllers/games")
 
 const router = new Router()
 
 router.post('/registration', User.registration)
 
-router.post('/search-games', GettingDataIGDB.getGameSearch)
+router.post('/login', User.login)
 
-router.get('/genres', GettingDataIGDB.getGenresofGames)
+router.post('/search-games', GamesIGDB.getGameSearch)
 
-router.post('/game-on-genres', GettingDataIGDB.getGamesOnGenres)
+router.get('/genres', GamesIGDB.getGenresofGames)
+
+router.post('/game-on-genres', GamesIGDB.getGamesOnGenres)
 
 module.exports = router

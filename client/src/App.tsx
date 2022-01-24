@@ -13,12 +13,13 @@ import Genres from "./pages/Genres";
 import GamesOnGenres from "./pages/GamesOnGenres";
 import Basket from "./pages/Basket";
 import { dataGames } from "./store/initialStore";
+import { IStore } from "./store/types/store-types";
 
 export const MyContext: any = React.createContext(null);
 
 export default function App() {
   const dispatch = useDispatch();
-  const { dataGames, basket } = useSelector((data: any) => data);
+  const { dataGames, basket, isAuth } = useSelector((data: IStore) => data);
   const { searchGames, genres, gamesOnGenrs, mainGames } = dataGames;
 
   const [isOpenPopap, setIsOpenPopap] = useState({
@@ -51,9 +52,10 @@ export default function App() {
 
   return (
     <>
-      <BrowserRouter>
+
         <MyContext.Provider
           value={{
+            isAuth,
             searchGames,
             genres,
             gamesOnGenrs,
@@ -80,6 +82,7 @@ export default function App() {
           <Routes>
             <Route
               path="/"
+            
               element={
                 <Main
                   limit={limit.genresLimit}
@@ -105,9 +108,10 @@ export default function App() {
               path="/basket"
               element={<Basket aboutGame={getAboutGame} />}
             />
+
+            <Route path = '*' element ={<h3>Not found...</h3>}/>
           </Routes>
         </MyContext.Provider>
-      </BrowserRouter>
     </>
   );
 }

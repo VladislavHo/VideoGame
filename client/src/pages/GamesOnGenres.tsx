@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { MyContext } from '../App'
 import ButtonLike from '../components/button-like/ButtonLike'
-import Images from '../components/images/Image'
+import Images from '../components/images/Images'
 
 export default function GamesOnGenres({aboutGame}) {
   const {gamesOnGenrs} = useContext(MyContext)
@@ -16,8 +16,9 @@ export default function GamesOnGenres({aboutGame}) {
           <Link to={`/games/${el.id}`} onClick={()=> aboutGame(el)}>
             {el.name}
           </Link>
-            <Images image = {el}/>
+            <Images image ={el} />
             <ButtonLike game ={el}/>
+            {console.log(el)}
         </li>
         
       ))

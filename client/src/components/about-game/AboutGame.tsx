@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { MyContext } from "../../App";
 import ButtonLike from "../button-like/ButtonLike";
-import Image from "../images/Image";
+import Image from "../images/Images";
 
 export default function AboutGame() {
   const {aboutGame} = useContext(MyContext)

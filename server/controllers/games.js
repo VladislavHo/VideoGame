@@ -1,7 +1,7 @@
 const igdb = require('igdb-api-node').default
 require('dotenv').config()
 
-class GettingDataIGDB{
+class GamesIGDB{
   async getGameSearch(req, res) {
     const {game = null, id = null} = req.body
     try{
@@ -45,7 +45,7 @@ class GettingDataIGDB{
           process.env.YOUR_TWITCH_CLIENT_ID,
           process.env.YOUR_TWITCH_APP_ACCESS_TOKEN
           )
-          .fields(["*"])
+          .fields(['name', 'screenshots.*'])
           .limit(500)
           .where([`genres = ('${id}')`])
           .request(`/games`)
@@ -61,4 +61,4 @@ class GettingDataIGDB{
 
 
 
-module.exports = new GettingDataIGDB()
+module.exports = new GamesIGDB()

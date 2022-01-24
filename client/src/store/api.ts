@@ -7,7 +7,7 @@ import { IStore } from "./types/store-types"
 
 const URL = 'http://localhost:5000/api'
 
-export default function createUser(user) {
+export function createUser(user) {
   return async(
     dispatch: ThunkDispatch<void, IStore, AnyAction>
   ):Promise<void> =>{
@@ -15,6 +15,20 @@ export default function createUser(user) {
       await axios.post(`${URL}/registration`,{
         user
       }).then(user => dispatch(UpdateUserAction({...user.data})))
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+}
+
+export  function login(user) {
+  return async(
+    dispatch
+  ) =>{
+    try {
+      await axios.post(`${URL}/login`,{
+        user
+      }).then((user) => console.log(user.data))
     } catch (error) {
       console.log(error.message)
     }
@@ -74,5 +88,3 @@ export function gameOnGenres(id) {
     }
   }
 }
-
-// dispatch(UpdateGameOnGenresAction(genres.data))

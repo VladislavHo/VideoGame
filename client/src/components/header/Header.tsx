@@ -5,6 +5,7 @@ import { UpdateIsAuthAction } from "../../store/actions";
 import Search from './search/Search'
 
 import "./header.scss";
+import { createUser } from "../../store/api";
 
 export default function Header({ isOpenUserForm, isOpenSearchGames, isCloseSearchGames}: any) {
   const dispatch = useDispatch()
@@ -21,10 +22,11 @@ export default function Header({ isOpenUserForm, isOpenSearchGames, isCloseSearc
         
         <Search isOpen = {isOpenSearchGames}/>
         <Link to='/basket'>Basket</Link>
-        {isAuth ? (
+        
+        {user.length ? (
           <div className="login_ponel">
             <p>{firstName}</p>
-            <button className="sign-out" onClick={()=>dispatch(UpdateIsAuthAction(false))}>Sign-out</button>
+            <button className="sign-out" onClick={()=>dispatch(createUser([]))}>Sign-out</button>
           </div>
 
         ) : (

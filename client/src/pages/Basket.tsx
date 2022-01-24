@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import Image from '../components/images/Image'
+import Image from '../components/images/Images'
 import ButtonLike from '../components/button-like/ButtonLike'
 import { MyContext } from '../App'
 
@@ -15,7 +15,7 @@ export default function Basket({aboutGame}) {
       {basket.map((el, i) => (
         <li key={el.name + el.id}>
           <Link to={`/games/${el.id}`} onClick={()=>aboutGame(basket[i])}>{el.name}</Link>
-            <Image image = {el}/>
+            <Image image = {el} size={''}/>
         </li>
       ))}
       </ul>
