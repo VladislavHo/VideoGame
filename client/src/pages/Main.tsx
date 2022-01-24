@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, Outlet } from "react-router-dom";
-import { gameOnGenres, getMainGames } from "../store/requests";
+import { gameOnGenres, getMainGames } from "../store/api";
 import Image from "../components/images/Image";
 import ButtonLike from "../components/button-like/ButtonLike";
+import { MyContext } from "../App";
 
-export default function Main({ limit, games, aboutGame }) {
+export default function Main({ limit, aboutGame }) {
   const dispatch = useDispatch();
+  const {mainGames} = useContext(MyContext)
   const [numberActionGames, setNumberActionGame] = useState(0);
 
   // const [currentScreen, setCurrentScreen] = useState([])
@@ -27,15 +29,15 @@ export default function Main({ limit, games, aboutGame }) {
     <>
       <h3>Main</h3>
       <section className="main-game">
-        <h3>{games[numberActionGames]?.name}</h3>
-        <ButtonLike game={games[numberActionGames]} />
+        <h3>{mainGames[numberActionGames]?.name}</h3>
+        <ButtonLike game={mainGames[numberActionGames]} />
         <Link
-          to={`/games/${games[numberActionGames]?.id}`}
-          onClick={() => aboutGame(games[numberActionGames])}
+          to={`/games/${mainGames[numberActionGames]?.id}`}
+          onClick={() => aboutGame(mainGames[numberActionGames])}
         >
           {'About game'}
         </Link>
-        <Image image={games[numberActionGames]} size={"t_screenshot_med"} />
+        <Image image={mainGames[numberActionGames]} size={"t_screenshot_med"} />
         <div className="small-screen">
           <ul>
             {/* {
@@ -49,7 +51,7 @@ export default function Main({ limit, games, aboutGame }) {
         </div>
 
         <ul>
-          {games.map((_, i) => (
+          {mainGames.map((_, i) => (
             <li key={i} onClick={() => setNumberActionGame(i)}>
               0
             </li>

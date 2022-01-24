@@ -12,7 +12,7 @@ export default function createUser(user) {
     dispatch: ThunkDispatch<void, IStore, AnyAction>
   ):Promise<void> =>{
     try {
-      await axios.post(`${URL}/create-user`,{
+      await axios.post(`${URL}/registration`,{
         user
       }).then(user => dispatch(UpdateUserAction({...user.data})))
     } catch (error) {

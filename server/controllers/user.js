@@ -4,7 +4,7 @@ const UserDB = require("../models/user")
 
 
 class User{
-  createUser(req, res) {
+  registration(req, res) {
     const {user} = req.body
       try{
         mongoose

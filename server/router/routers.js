@@ -4,7 +4,7 @@ const GettingDataIGDB = require("../controllers/getting-game-data")
 
 const router = new Router()
 
-router.post('/create-user', User.createUser)
+router.post('/registration', User.registration)
 
 router.post('/search-games', GettingDataIGDB.getGameSearch)
 

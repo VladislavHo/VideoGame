@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { UpdateIsAuthAction } from "../../store/actions";
-import createUser from '../../store/requests'
+import createUser from '../../store/api'
 
 
 export default function PopapUserForm({isClose}:any) {

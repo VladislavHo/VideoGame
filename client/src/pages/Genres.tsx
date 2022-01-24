@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { gameOnGenres } from "../store/requests";
+import { gameOnGenres } from "../store/api";
 import Image from '../components/images/Image'
 import ButtonLike from '../components/button-like/ButtonLike'
+import { MyContext } from "../App";
 
 
-export default function Genres({ genres }) {
+export default function Genres() {
+  const {genres} = useContext(MyContext)
   const dispatch = useDispatch()
   return (
     <>

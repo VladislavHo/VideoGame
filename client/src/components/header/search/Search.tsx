@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { searchGames } from '../../../store/requests'
+import { searchGames } from '../../../store/api'
 
 export default function Search({isOpen}) {
   const dispatch = useDispatch()

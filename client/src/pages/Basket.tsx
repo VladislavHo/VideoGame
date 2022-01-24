@@ -2,16 +2,19 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import Image from '../components/images/Image'
 import ButtonLike from '../components/button-like/ButtonLike'
+import { MyContext } from '../App'
 
 
-export default function Basket({games, aboutGame}) {
+export default function Basket({aboutGame}) {
+  const {basket} = React.useContext(MyContext)
+
   return (
     <>
       <h3>Basket</h3>
       <ul>
-      {games.map((el, i) => (
+      {basket.map((el, i) => (
         <li key={el.name + el.id}>
-          <Link to={`/games/${el.id}`} onClick={()=>aboutGame(games[i])}>{el.name}</Link>
+          <Link to={`/games/${el.id}`} onClick={()=>aboutGame(basket[i])}>{el.name}</Link>
             <Image image = {el}/>
         </li>
       ))}

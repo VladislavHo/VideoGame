@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
+import { MyContext } from '../../App'
 import Image from '../images/Image'
 
-export default function SearchGames({isCloseSearchGames, games, aboutGame}) {
+export default function SearchGames({isCloseSearchGames, aboutGame}) {
+  const {searchLimt} = useContext(MyContext)
+
 
   const handleClickLinks = (game) =>{
     isCloseSearchGames()
@@ -13,9 +16,9 @@ export default function SearchGames({isCloseSearchGames, games, aboutGame}) {
     <>
     <h3 onClick={isCloseSearchGames}>Search Games</h3>
     <ul>
-    {games.map((el, i) => (
+    {searchLimt.map((el, i) => (
       <li key={el.name + el.id}>
-        <Link to={`/games/${el.id}`} onClick={()=> handleClickLinks(games[i])}>{el.name}</Link>
+        <Link to={`/games/${el.id}`} onClick={()=> handleClickLinks(searchLimt[i])}>{el.name}</Link>
         <Image image ={el}/>
       </li>
       ))}
