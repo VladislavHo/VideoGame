@@ -4,6 +4,26 @@
   box-sizing: border-box;
 }
 
+body{
+  background: linear-gradient(90deg, rgb(105, 1, 79) 10%, rgb(207, 255, 61));;
+}
+section{
+  max-width: 1200px;  
+  margin: 2rem auto;
+  background-color: rgba(71, 71, 71, 0.5);
+  border-radius: 10px;
+}
+ul{
+  list-style-type: none;
+}
+
+a{
+  text-decoration: none;
+}
+
+button{
+  cursor: pointer;
+}
 h1{
   color: rebeccapurple
 }

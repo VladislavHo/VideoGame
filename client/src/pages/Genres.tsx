@@ -11,8 +11,9 @@ export default function Genres() {
   const {genres} = useContext(MyContext)
   const dispatch = useDispatch()
   return (
-    <>
-      <h2>Genres</h2>
+
+<>
+<h2>Genres</h2>
       <h5>Всего жанров: {genres.lenght}</h5>
       <ul>
         {genres.map((el, i) => (
@@ -24,7 +25,9 @@ export default function Genres() {
         </li>
         ))}
       </ul>
-    </>
+</>
+
+
   );
 }
 

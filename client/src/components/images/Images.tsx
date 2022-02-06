@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-
+import './images.scss'
 export default function Images({image, index = 0, size = 't_thumb'}) {
 
   const sizeImage = image?.screenshots ? image?.screenshots[index].url.replace(/t_thumb/, size) : null

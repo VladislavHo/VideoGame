@@ -20,7 +20,13 @@ export default function SearchGames({isCloseSearchGames, aboutGame}) {
     {searchLimt.map((el, i) => (
       <li key={el.name + el.id}>
         <Link to={`/games/${el.id}`} onClick={()=> handleClickLinks(searchLimt[i])}>{el.name}</Link>
+        <div className="search-image" style={{
+          width: '20px',
+          height: '20px'
+        }}>
         <Images image ={el} />
+
+        </div>
       </li>
       ))}
       <Link to='/games' onClick={isCloseSearchGames}>More...</Link>
