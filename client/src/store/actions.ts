@@ -1,7 +1,7 @@
 import {Actions} from './types/action-types'
 import { IUserInfo } from './types/store-types'
 
-export function UpdateUserAction(payload:IUserInfo) {
+export function UpdateUserAction(payload) {
   return{
     type: Actions.UPDATE_USERINFO,
     payload
@@ -39,6 +39,13 @@ export function UpdateGameOnGenresAction(payload) {
 export function UpdateBasketAction(payload) {
   return{
     type: Actions.UPDATE_BASKET,
+    payload
+  }
+}
+
+export function RemoveBasketAction(payload) {
+  return{
+    type: Actions.REMOVE_BASKET,
     payload
   }
 }

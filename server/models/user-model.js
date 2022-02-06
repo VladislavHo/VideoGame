@@ -18,8 +18,8 @@ const UserDB = new Schema({
     type: String,
     required: true
   },
-  token: {
-    type: String
+  basket:{
+    type: Array,
   }
 });
 

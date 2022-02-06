@@ -1,7 +1,7 @@
 import axios from "axios"
 import { AnyAction } from "redux"
 import { ThunkDispatch } from "redux-thunk"
-import {GettingGenresAction, UpdateGameOnGenresAction, UpdateMainGamesAction, UpdateSearchGamesAction, UpdateUserAction} from './actions'
+import {GettingGenresAction, UpdateBasketAction, UpdateGameOnGenresAction, UpdateMainGamesAction, UpdateSearchGamesAction, UpdateUserAction} from './actions'
 import { MAIN_GAME_ID } from "./initialStore"
 import { IStore } from "./types/store-types"
 
@@ -12,7 +12,7 @@ export function createUser(user) {
     dispatch: ThunkDispatch<void, IStore, AnyAction>
   ):Promise<void> =>{
     try {
-      await axios.post(`${URL}/registration`,{
+      await axios.post(`${URL}/auth/registration`,{
         user
       }).then(user => dispatch(UpdateUserAction({...user.data})))
     } catch (error) {
@@ -26,9 +26,13 @@ export  function login(user) {
     dispatch
   ) =>{
     try {
-      await axios.post(`${URL}/login`,{
+      await axios.post(`${URL}/auth/login`,{
         user
-      }).then((user) => console.log(user.data))
+      }).then((user) =>{
+        const {id, firstName, lastName, email, basket} = user.data
+        dispatch(UpdateUserAction({id, firstName, lastName, email}))
+        dispatch(UpdateBasketAction(basket))
+      })
     } catch (error) {
       console.log(error.message)
     }
@@ -87,4 +91,24 @@ export function gameOnGenres(id) {
       console.log(error.message)
     }
   }
+}
+
+export function updateBasketAction(game) {
+  return async(
+    dispatch,
+    getState
+  ) =>{
+    try{
+      const {user, basket} = getState()
+      const {email} = user
+      const {id} = game
+      await axios.post(`${URL}/update-basket`, {
+        email,
+        id
+      })
+      .then(data => console.log(`data ${data}`))
+    }catch(error) {
+      console.log(error.message)
+    }
+  } 
 }

@@ -3,10 +3,10 @@ import { useDispatch } from "react-redux";
 import { Link, Outlet } from "react-router-dom";
 import { gameOnGenres, getMainGames } from "../store/api";
 import Image from "../components/images/Images";
-import ButtonLike from "../components/button-like/ButtonLike";
+import ButtonLike from "../components/buttons/ButtonLike";
 import { MyContext } from "../App";
 
-export default function Main({ limit, aboutGame }) {
+export default function Main({ limit, aboutGame, setImage, openImage }) {
   const dispatch = useDispatch();
   const { mainGames } = useContext(MyContext);
   const [numberActionGames, setNumberActionGame] = useState(0);
@@ -30,7 +30,10 @@ export default function Main({ limit, aboutGame }) {
           <ul>
             {offsetScreen &&
               offsetScreen.map((el, i) => (
-                <li key={el.id + i}>
+                <li key={el.id + i} onClick={()=> {
+                  console.log('32')
+                    openImage()
+                    setImage(mainGames[numberActionGames]?.screenshots)}}>
                   <Image
                     image={mainGames[numberActionGames]}
                     index={i + 1}

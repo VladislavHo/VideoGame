@@ -1,14 +1,9 @@
-const mongoose = require("mongoose");
-const UserDB = require("../models/user")
+const UserDB = require("../models/user-model")
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
+const TokenService = require('../service/token-service');
+const UserDto = require("../dtos/user-dtos");
+const { db } = require("../models/user-model");
 
-const generateAccessToken =(id)=> {
-  const payload = {
-    id
-  }
-  return jwt.sign(payload, process.env.TOKEN_JWT_KEY, {expiresIn: '24h'})
-}
 
 class User{
   async registration(req, res) {
@@ -20,11 +15,13 @@ class User{
         if(candidate) {
           res.status(400).json({message: email + ' уже существует!'})
         }
+
         const hashPassword = bcrypt.hashSync(password, 6);
-        const token = generateAccessToken(user._id)
-        const newActiveUser = new UserDB({...user, token, password: hashPassword})
+        const newActiveUser = new UserDB({...user, password: hashPassword})
         await newActiveUser.save()
 
+
+        // res.cookie('refreshToken', TokenService.generateToken({...newActiveUser._id}).refreshToken)
         return res.status(200).send(newActiveUser)
 
     } catch (error) {
@@ -35,28 +32,38 @@ class User{
   async login(req, res) {
     try {
         const {email, password} = req.body.user
-        console.log(email, password)
-        const user = await UserDB.findOne({email})
 
+        const user = await UserDB.findOne({email})
         if(!user) {
           res.status(400).json({message: `пользавтель ${email} не найден!`})
         }
        
-        console.log(user.password)
         const validPassword =  bcrypt.compareSync(password, user.password)
 
         if(!validPassword) {
           res.status(400).json({message: 'Неверный пароль'})
         }
-        
-        
+         
 
-        return res.send({token})
+        const userDto = new UserDto(user)
 
-      //  res.status(200).json()
+        return res.status(200).json({...userDto})
+
     } catch (error) {
        res.status(400).json({message: error.message})
     }
+  }
+ async updataBasket(req, res){
+   try {
+    const {email, id} = req.body
+    const userDB = await UserDB.findOne({email}).updateOne({$push:{basket: id}})
+
+    if(!userDB) {
+      res.status(400).json({message: `${email} не найден, необходимо зарегистрироваться`})
+    }
+   } catch (error) {
+     console.log(error.message)
+   }
   }
 }
 

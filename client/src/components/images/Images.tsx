@@ -2,13 +2,14 @@ import React, { useState } from 'react'
 
 export default function Images({image, index = 0, size = 't_thumb'}) {
 
-  const sizeImage = image?.screenshots[index].url.replace(/t_thumb/, size)
+  const sizeImage = image?.screenshots ? image?.screenshots[index].url.replace(/t_thumb/, size) : null
 
   // console.log(sizeImage)
   // t_thumb
+
   return (
     <>
-    {!image?.screenshots ? 'no' : <img src={image?.screenshots[index]?.url} alt={image.name} />}
+    {!sizeImage ? 'no' : <img src={sizeImage} alt={image.name} />}
     
     </>
   )

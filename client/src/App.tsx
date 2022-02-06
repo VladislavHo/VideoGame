@@ -14,6 +14,7 @@ import GamesOnGenres from "./pages/GamesOnGenres";
 import Basket from "./pages/Basket";
 import { dataGames } from "./store/initialStore";
 import { IStore } from "./store/types/store-types";
+import ShowImage from "./components/show-image/showImage";
 
 export const MyContext: any = React.createContext(null);
 
@@ -25,8 +26,12 @@ export default function App() {
   const [isOpenPopap, setIsOpenPopap] = useState({
     isUserForm: false,
     isGameForm: false,
+    isShowImage: false,
   });
+  const [basketLength, setBasketLength] = useState(basket.length)
+
   const [aboutGame, setAboutGame] = useState({});
+  const [showImage, setShowImage] = useState({});
 
   const limit = {
     searchLimit: searchGames.slice(0, 3),
@@ -40,6 +45,11 @@ export default function App() {
   const isCloseUserForm = () =>
     setIsOpenPopap({ ...isOpenPopap, isUserForm: false });
 
+  const isOpenShowImage = () =>
+    setIsOpenPopap({ ...isOpenPopap, isShowImage: true });
+  const isCloseShowImage = () =>
+    setIsOpenPopap({ ...isOpenPopap, isShowImage: false });
+
   const isOpenSearchGames = () =>
     setIsOpenPopap({ ...isOpenPopap, isGameForm: true });
   const isCloseSearchGames = () =>
@@ -50,68 +60,66 @@ export default function App() {
     dispatch(gettingGenres());
   }, []);
 
+  useEffect(()=>{
+    setBasketLength(basket.length)
+    console.log(basket)
+  }, [basket])
   return (
     <>
-
-        <MyContext.Provider
-          value={{
-            isAuth,
-            searchGames,
-            genres,
-            gamesOnGenrs,
-            mainGames,
-            basket,
-            aboutGame,
-            searchLimt: limit.searchLimit,
-            genresLimit: limit.genresLimit
-          }}
-        >
-          {isOpenPopap.isUserForm && (
-            <PopapUserForm isClose={isCloseUserForm} />
-          )}
-          <Header
-            isOpenUserForm={isOpenUserForm}
-            isOpenSearchGames={isOpenSearchGames}
+      <MyContext.Provider
+        value={{
+          isAuth,
+          searchGames,
+          genres,
+          gamesOnGenrs,
+          mainGames,
+          basket,
+          aboutGame,
+          searchLimt: limit.searchLimit,
+          genresLimit: limit.genresLimit,
+        }}
+      >
+        {isOpenPopap.isUserForm && <PopapUserForm isClose={isCloseUserForm} />}
+        <Header
+          isOpenUserForm={isOpenUserForm}
+          isOpenSearchGames={isOpenSearchGames}
+          length = {basketLength}
+        />
+        {isOpenPopap.isGameForm && (
+          <SearchGames
+            isCloseSearchGames={isCloseSearchGames}
+            aboutGame={getAboutGame}
           />
-          {isOpenPopap.isGameForm && (
-            <SearchGames
-              isCloseSearchGames={isCloseSearchGames}
-              aboutGame={getAboutGame}
-            />
-          )}
-          <Routes>
-            <Route
-              path="/"
-            
-              element={
-                <Main
-                  limit={limit.genresLimit}
-                  aboutGame={getAboutGame}
-                />
-              }
-            />
-            <Route
-              path="/games"
-              element={<Games aboutGame={getAboutGame} />}
-            />
+        )}
+        {isOpenPopap.isShowImage && (
+          <ShowImage img={showImage} close={isCloseShowImage} />
+        )}
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Main
+                limit={limit.genresLimit}
+                aboutGame={getAboutGame}
+                setImage={setShowImage}
+                openImage = {isOpenShowImage}
+              />
+            }
+          />
+          <Route path="/games" element={<Games aboutGame={getAboutGame} />} />
 
-            <Route path="/games/:id" element={<AboutGame />} />
-            <Route path="/genres" element={<Genres />} />
-            <Route
-              path="/genres/:id"
-              element={
-                <GamesOnGenres aboutGame={getAboutGame} />
-              }
-            />
+          <Route path="/games/:id" element={<AboutGame />} />
+          <Route path="/genres" element={<Genres />} />
+          <Route
+            path="/genres/:id"
+            element={<GamesOnGenres aboutGame={getAboutGame} />}
+          />
 
-            <Route
-              path="/basket"
-              element={<Basket aboutGame={getAboutGame} />}
-            />
+          <Route path="/basket" element={<Basket aboutGame={getAboutGame} />} />
 
-            <Route path = '*' element ={<h3>Not found...</h3>}/>
-          </Routes>
-        </MyContext.Provider>
+          <Route path="*" element={<h3>Not found...</h3>} />
+        </Routes>
+      </MyContext.Provider>
     </>
   );
 }

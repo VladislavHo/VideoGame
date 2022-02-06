@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { useDispatch, useSelector, useStore } from "react-redux";
 import { Link} from "react-router-dom";
 import { MyContext } from "../App";
-import ButtonLike from '../components/button-like/ButtonLike'
+import ButtonLike from '../components/buttons/ButtonLike'
 import Image from '../components/images/Images'
 
 
@@ -13,6 +13,7 @@ export default function Games({  aboutGame }) {
   return (
     <>
       <h3>Games</h3>
+      <h5>Всего найденых игр: {searchGames.length}</h5>
       <ul>
         {searchGames.map((el, i) => (
           <li key={el.id + el.name}>

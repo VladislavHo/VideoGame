@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { gameOnGenres } from "../store/api";
 import Image from '../components/images/Images'
-import ButtonLike from '../components/button-like/ButtonLike'
+import ButtonLike from '../components/buttons/ButtonLike'
 import { MyContext } from "../App";
 
 
@@ -13,6 +13,7 @@ export default function Genres() {
   return (
     <>
       <h2>Genres</h2>
+      <h5>Всего жанров: {genres.lenght}</h5>
       <ul>
         {genres.map((el, i) => (
           <li key={el.name + el.id}>

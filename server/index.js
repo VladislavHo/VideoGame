@@ -2,7 +2,7 @@ const express = require("express")
 const cors = require("cors");
 const router = require("./router/routers");
 const mongoose = require("mongoose");
-
+const cookieParser = require("cookie-parser")
 
 const PORT = process.env.PORT || 5000;
 const CLIENT_URL = 'http://localhost:8080'
@@ -14,7 +14,8 @@ app.use(express.json())
 app.use(cors({ origin: [CLIENT_URL, "*"], credentials: true }));
 app.use('/api', router)
 app.use('/auth', router)
-app.use('/api', cors)
+app.use('/api', cors())
+app.use('/api', cookieParser())
 
 
 

@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { MyContext } from "../../App";
-import ButtonLike from "../button-like/ButtonLike";
+import ButtonLike from "../buttons/ButtonLike";
 import Image from "../images/Images";
 
 export default function AboutGame() {

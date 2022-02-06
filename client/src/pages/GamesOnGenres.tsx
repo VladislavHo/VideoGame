@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { MyContext } from '../App'
-import ButtonLike from '../components/button-like/ButtonLike'
+import ButtonLike from '../components/buttons/ButtonLike'
 import Images from '../components/images/Images'
 
 export default function GamesOnGenres({aboutGame}) {
@@ -9,6 +9,7 @@ export default function GamesOnGenres({aboutGame}) {
   return (
     <>
     <h3>Games on genres</h3>
+    <h5>Всего игр {gamesOnGenrs.length}</h5>
     <ul>
     {
       gamesOnGenrs.map((el, i) => (

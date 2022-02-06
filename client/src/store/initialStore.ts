@@ -5,8 +5,7 @@ export const user:IUserInfo = {
   firstName: '',
   lastName: '',
   email: '',
-  __v: 0,
-  _id: ''
+  id: ''
 
 }
 
