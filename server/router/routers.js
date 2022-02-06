@@ -16,4 +16,6 @@ router.post('/game-on-genres', GamesIGDB.getGamesOnGenres)
 
 router.post('/update-basket', User.updataBasket)
 
+router.post('/remove-basket', User.removeBasket)
+
 module.exports = router

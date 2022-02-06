@@ -22,7 +22,7 @@ export default function reducers(state: IStore = initialStore, actions) {
     case Actions.GETTING_MAIN_GAMES:
       return { ...state, dataGames: { ...state.dataGames, mainGames: actions.payload } }
     case Actions.UPDATE_BASKET:
-      return { ...state, basket: [...state.basket, actions.payload] }
+      return { ...state, basket: [...actions.payload] }
     case Actions.REMOVE_BASKET:
       return { ...state, basket: state.basket.filter((el) => el.id !== actions.payload)}
 

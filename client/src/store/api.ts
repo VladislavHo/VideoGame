@@ -61,7 +61,7 @@ export function getMainGames() {
     try {
       await axios.post(`${URL}/search-games`, {
           id: MAIN_GAME_ID
-      }).then(games => dispatch(UpdateMainGamesAction(games.data)))
+      }).then(games => dispatch(UpdateMainGamesAction([...games.data])))
     } catch (error) {
       console.log(error.message)
     }
@@ -93,7 +93,7 @@ export function gameOnGenres(id) {
   }
 }
 
-export function updateBasketAction(game) {
+export function updateBasket(game) {
   return async(
     dispatch,
     getState
@@ -104,11 +104,31 @@ export function updateBasketAction(game) {
       const {id} = game
       await axios.post(`${URL}/update-basket`, {
         email,
-        id
+        game
       })
-      .then(data => console.log(`data ${data}`))
+      .then(basketDB => dispatch(UpdateBasketAction(basketDB.data)))
     }catch(error) {
       console.log(error.message)
     }
   } 
+}
+
+export function removeBasket(game) {
+  return async(
+    dispatch,
+    getState
+  ) =>{
+    try {
+      const {user} = getState()
+      const {email} = user
+      await axios.post(`${URL}/remove-basket`, {
+        email,
+        game
+      })
+      .then(basketDB => dispatch(UpdateBasketAction(basketDB.data)))
+    } 
+    catch (error) {
+      console.log(error.message)
+    }
+  }
 }

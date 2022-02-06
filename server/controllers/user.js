@@ -55,15 +55,42 @@ class User{
   }
  async updataBasket(req, res){
    try {
-    const {email, id} = req.body
-    const userDB = await UserDB.findOne({email}).updateOne({$push:{basket: id}})
+    const {email, game} = req.body
+    const userDB = await UserDB.findOne({email}).updateOne({$addToSet :{basket: game}})
+    
+
 
     if(!userDB) {
       res.status(400).json({message: `${email} не найден, необходимо зарегистрироваться`})
     }
+
+    const user = await UserDB.findOne({email})
+   
+
+    return res.status(200).json(user.basket)
    } catch (error) {
      console.log(error.message)
    }
+  }
+
+  async removeBasket(req, res) {
+    try {
+      const {email, game} = req.body
+
+
+      const userDB = await UserDB.findOne({email}).updateOne({$pull :{basket: game}})
+
+      if(!userDB) {
+        res.status(400).json({message: `${email} не найден, необходимо зарегистрироваться`})
+      }
+
+      const user = await UserDB.findOne({email})
+   
+
+      return res.status(200).json(user.basket)
+    } catch (error) {
+      console.log(error.message)
+    }
   }
 }
 

@@ -22,8 +22,8 @@ export default function Basket({aboutGame}) {
       {basket.map((el, i) => (
         <li key={el.name + el.id}>
           <Link to={`/games/${el.id}`} onClick={()=>aboutGame(basket[i])}>{el.name}</Link>
-            <Image image = {el} size={''}/>
-            <ButtonRemove id = {el.id}/>
+            <Image image = {el} />
+            <ButtonRemove game = {el}/>
         </li>
       ))}
       </ul>
