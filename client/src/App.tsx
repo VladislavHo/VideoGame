@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Header from "./components/header/Header";
 import Main from "./pages/Main";
 import Games from "./pages/Games";
 import PopapUserForm from "./components/user-form/PopapUserForm";
 import SearchGames from "./components/search-game/SearchGames";
-import "./style.scss";
 import { useDispatch, useSelector } from "react-redux";
-import AboutGame from "./components/about-game/AboutGame";
+import AboutGame from "./pages/AboutGame";
 import { getMainGames, gettingGenres } from "./store/api";
 import Genres from "./pages/Genres";
 import GamesOnGenres from "./pages/GamesOnGenres";
 import Basket from "./pages/Basket";
-import { dataGames } from "./store/initialStore";
 import { IStore } from "./store/types/store-types";
 import ShowImage from "./components/show-image/showImage";
+import "./style.scss";
 
 export const MyContext: any = React.createContext(null);
 

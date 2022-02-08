@@ -9,7 +9,7 @@ class GamesIGDB{
         process.env.YOUR_TWITCH_CLIENT_ID,
         process.env.YOUR_TWITCH_APP_ACCESS_TOKEN
         )
-        .fields(['name', 'screenshots.*'])
+        .fields(['name', 'screenshots.*', 'cover.*', 'rating', 'involved_companies.*', 'first_release_date', 'genres.*' , 'storyline', 'summary', 'videos.*'])
         .where(id)
         .limit(500)
         .search(game)
@@ -56,6 +56,7 @@ class GamesIGDB{
         console.log(error.message)
       }
     }
+    
 
 }
 

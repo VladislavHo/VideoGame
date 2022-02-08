@@ -7,6 +7,9 @@
 body{
   background: linear-gradient(90deg, rgb(105, 1, 79) 10%, rgb(207, 255, 61));;
 }
+.app{
+  position: relative;
+}
 section{
   max-width: 1200px;  
   margin: 2rem auto;
@@ -27,3 +30,7 @@ button{
 h1{
   color: rebeccapurple
 }
+
+
+
+

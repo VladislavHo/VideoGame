@@ -5,6 +5,7 @@ import { gameOnGenres } from "../store/api";
 import Image from '../components/images/Images'
 import ButtonLike from '../components/buttons/ButtonLike'
 import { MyContext } from "../App";
+import Loader from "../components/loader/Loader";
 
 
 export default function Genres() {
@@ -16,7 +17,8 @@ export default function Genres() {
 <h2>Genres</h2>
       <h5>Всего жанров: {genres.lenght}</h5>
       <ul>
-        {genres.map((el, i) => (
+        
+        {!genres.length ? (<Loader/>) : genres.map((el, i) => (
           <li key={el.name + el.id}>
           <Link to={`/genres/${el.slug}`} onClick={()=> dispatch(gameOnGenres(el.id))}>
             {el.name}

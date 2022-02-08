@@ -1,0 +1,14 @@
+.basket{
+  ul{
+    li{
+      display: flex;
+      a{
+        color: white;
+      }
+    }
+  }
+  .basket_screen-game{
+    width: 50px;
+    height: 50px;
+  }
+}

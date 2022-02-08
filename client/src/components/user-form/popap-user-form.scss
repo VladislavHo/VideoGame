@@ -1,4 +1,25 @@
-form{
+.window-form{
+  position: absolute;
+  width: 100%;
+  height: 100%;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 99;
+  background-color: rgba(0, 0, 0, 0.466);
+  .auth-user{
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    padding: 60px 40px;
+    border-radius: 2rem;
+    background-color: white;
+    .form-user{
+      width: 100%;
+      height: 100%;
+      border: none;
+      outline: none;
+    }
+    
+  }
 }

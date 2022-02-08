@@ -1,16 +1,16 @@
-import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { RemoveBasketAction, UpdateBasketAction } from '../../store/actions'
-import { removeBasket } from '../../store/api'
+import React from "react";
+import { useDispatch} from "react-redux";
+import { removeBasket } from "../../store/api";
 
-export default function ButtonRemove({game}) {
-  const dispatch = useDispatch()
+import './button-remove.scss'
+export default function ButtonRemove({ game }) {
+  const dispatch = useDispatch();
 
   return (
-    <button onClick={()=> dispatch(removeBasket(game))}>
-      Remove
+    <button className="remove-btn" onClick={() => dispatch(removeBasket(game))}>
+      <span className="material-icons-outlined remove">delete</span>
     </button>
-  )
+  );
 }
 
 // dispatch(UpdateBasketAction([...basket.splice(index, 1)]))

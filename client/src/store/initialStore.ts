@@ -28,4 +28,4 @@ export const initialStore:IStore = {
   
 }
 
-export const MAIN_GAME_ID = [`id = (1020, 1942, 28028, 1877, 25076)`]
+export const MAIN_GAME_ID = [`id = (1020, 1942, 28028, 1877 , 25076)`]
