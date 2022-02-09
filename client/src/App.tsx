@@ -2,17 +2,26 @@ import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Header from "./components/header/Header";
 import Main from "./pages/Main";
-import Games from "./pages/Games";
 import PopapUserForm from "./components/user-form/PopapUserForm";
 import SearchGames from "./components/search-game/SearchGames";
 import { useDispatch, useSelector } from "react-redux";
 import AboutGame from "./pages/AboutGame";
-import { getMainGames, gettingGenres } from "./store/api";
-import Genres from "./pages/Genres";
-import GamesOnGenres from "./pages/GamesOnGenres";
+import {
+  getMainGames,
+  gettingGenres,
+  gettingPlatforms,
+  gettingThemes,
+} from "./store/api";
 import Basket from "./pages/Basket";
 import { IStore } from "./store/types/store-types";
 import ShowImage from "./components/show-image/showImage";
+import GenresPaginate from "./pages/genres/Genres";
+import GamesOnGenresPaginate from "./pages/genres/GamesOnGenres";
+import PaginateGames from "./pages/Games";
+import GamesOnPlatformsPaginate from "./pages/platforms/GamesOnPlatforms";
+import GamesOnThemesPaginate from "./pages/themes/GamesOnThemes";
+import ThemesPaginate from "./pages/themes/Themes";
+import PlatformsPaginate from "./pages/platforms/Platforms";
 import "./style.scss";
 
 export const MyContext: any = React.createContext(null);
@@ -20,14 +29,22 @@ export const MyContext: any = React.createContext(null);
 export default function App() {
   const dispatch = useDispatch();
   const { dataGames, basket, isAuth } = useSelector((data: IStore) => data);
-  const { searchGames, genres, gamesOnGenrs, mainGames } = dataGames;
-
+  const {
+    searchGames,
+    genres,
+    gamesOnGenres,
+    mainGames,
+    themes,
+    gamesOnThemes,
+    platforms,
+    gamesOnPlatforms,
+  } = dataGames;
   const [isOpenPopap, setIsOpenPopap] = useState({
     isUserForm: false,
     isGameForm: false,
     isShowImage: false,
   });
-  const [basketLength, setBasketLength] = useState(basket.length)
+  const [basketLength, setBasketLength] = useState(basket.length);
 
   const [aboutGame, setAboutGame] = useState({});
   const [showImage, setShowImage] = useState({});
@@ -35,8 +52,9 @@ export default function App() {
   const limit = {
     searchLimit: searchGames.slice(0, 3),
     genresLimit: genres.slice(0, 6),
+    themesLimit: themes.slice(0, 6),
+    platformsLimit: platforms.slice(0, 6),
   };
-
   const getAboutGame = (game) => setAboutGame(game);
 
   const isOpenUserForm = () =>
@@ -57,12 +75,13 @@ export default function App() {
   useEffect(() => {
     dispatch(getMainGames());
     dispatch(gettingGenres());
+    dispatch(gettingThemes());
+    dispatch(gettingPlatforms());
   }, []);
 
-  useEffect(()=>{
-    setBasketLength(basket.length)
-    console.log(basket)
-  }, [basket])
+  useEffect(() => {
+    setBasketLength(basket.length);
+  }, [basket]);
   return (
     <>
       <MyContext.Provider
@@ -70,26 +89,29 @@ export default function App() {
           isAuth,
           searchGames,
           genres,
-          gamesOnGenrs,
+          gamesOnGenres,
+          themes,
+          gamesOnThemes,
           mainGames,
           basket,
           aboutGame,
-          searchLimt: limit.searchLimit,
+          platforms,
+          gamesOnPlatforms,
+          platformsLimit: limit.platformsLimit,
+          searchLimit: limit.searchLimit,
           genresLimit: limit.genresLimit,
+          themesLimit: limit.themesLimit,
+          openForm: isOpenUserForm,
+          closeSearch: isCloseSearchGames,
         }}
       >
         {isOpenPopap.isUserForm && <PopapUserForm isClose={isCloseUserForm} />}
         <Header
           isOpenUserForm={isOpenUserForm}
           isOpenSearchGames={isOpenSearchGames}
-          length = {basketLength}
+          length={basketLength}
         />
-        {isOpenPopap.isGameForm && (
-          <SearchGames
-            isCloseSearchGames={isCloseSearchGames}
-            aboutGame={getAboutGame}
-          />
-        )}
+        {isOpenPopap.isGameForm && <SearchGames aboutGame={getAboutGame} />}
         {isOpenPopap.isShowImage && (
           <ShowImage img={showImage} close={isCloseShowImage} />
         )}
@@ -98,20 +120,59 @@ export default function App() {
             path="/"
             element={
               <Main
-                limit={limit.genresLimit}
                 aboutGame={getAboutGame}
                 setImage={setShowImage}
-                openImage = {isOpenShowImage}
+                openImage={isOpenShowImage}
               />
             }
           />
-          <Route path="/games" element={<Games aboutGame={getAboutGame} />} />
+          <Route
+            path="/games"
+            element={
+              <PaginateGames aboutGame={getAboutGame} itemsPerPage={10} />
+            }
+          />
 
           <Route path="/games/:id" element={<AboutGame />} />
-          <Route path="/genres" element={<Genres />} />
+          <Route
+            path="/genres"
+            element={<GenresPaginate itemsPerPage={10} />}
+          />
           <Route
             path="/genres/:id"
-            element={<GamesOnGenres aboutGame={getAboutGame} />}
+            element={
+              <GamesOnGenresPaginate
+                itemsPerPage={10}
+                aboutGame={getAboutGame}
+              />
+            }
+          />
+          <Route
+            path="/themes"
+            element={<ThemesPaginate itemsPerPage={10} />}
+          />
+          <Route
+            path="/themes/:id"
+            element={
+              <GamesOnThemesPaginate
+                itemsPerPage={10}
+                aboutGame={getAboutGame}
+              />
+            }
+          />
+
+          <Route
+            path="/platforms"
+            element={<PlatformsPaginate itemsPerPage={10} />}
+          />
+          <Route
+            path="/platforms/:id"
+            element={
+              <GamesOnPlatformsPaginate
+                itemsPerPage={10}
+                aboutGame={getAboutGame}
+              />
+            }
           />
 
           <Route path="/basket" element={<Basket aboutGame={getAboutGame} />} />

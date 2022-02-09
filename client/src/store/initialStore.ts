@@ -16,8 +16,12 @@ export const isAuth:boolean = false
 export const dataGames:IGames = {
   searchGames: [],
   genres: [],
-  gamesOnGenrs: [],
-  mainGames: []
+  gamesOnGenres: [],
+  themes: [],
+  gamesOnThemes: [],
+  mainGames: [],
+  platforms: [],
+  gamesOnPlatforms: []
 }
 
 export const initialStore:IStore = {

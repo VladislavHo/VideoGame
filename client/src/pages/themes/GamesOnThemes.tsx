@@ -1,26 +1,25 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useDispatch, useSelector, useStore } from "react-redux";
-import { Link } from "react-router-dom";
-import { MyContext } from "../App";
-import ButtonLike from "../components/buttons/ButtonLike";
-import Image from "../components/images/Images";
 import ReactPaginate from "react-paginate";
-import "./games.scss";
-function Games({ aboutGame, currentItems, length }) {
+import { Link } from "react-router-dom";
+import { MyContext } from "../../App";
+import ButtonLike from "../../components/buttons/ButtonLike";
+import Images from "../../components/images/Images";
+import Loader from "../../components/loader/Loader";
+import "../games.scss";
+function GamesOnThemes({ currentItems, length, aboutGame }) {
   return (
     <>
       <section className="games">
-        <h3>Games</h3>
-        <h5>Всего найденых игр: {length}</h5>
+        <h3>Games on themes</h3>
+        <h5>Всего игр {length}</h5>
         <ul>
           {currentItems &&
             currentItems.map((el, i) => (
-              <li key={el.id + el.name}>
+              <li key={el.name + el.id}>
                 <Link to={`/games/${el.id}`} onClick={() => aboutGame(el)}>
                   {el.name}
-
                   <div className="game-images">
-                    <Image image={el} />
+                    <Images image={el} />
                   </div>
                 </Link>
                 <div className="games_btn-like">
@@ -34,29 +33,30 @@ function Games({ aboutGame, currentItems, length }) {
   );
 }
 
-export default function PaginateGames({ aboutGame, itemsPerPage }) {
-  const { searchGames } = useContext(MyContext);
+export default function GamesOnThemesPaginate({ itemsPerPage, aboutGame }) {
+  const { gamesOnThemes } = useContext(MyContext);
   const [currentItems, setCurrentItems] = useState(null);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
 
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
-    setCurrentItems(searchGames.slice(itemOffset, endOffset));
-    setPageCount(Math.ceil(searchGames.length / itemsPerPage));
+    setCurrentItems(gamesOnThemes.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(gamesOnThemes.length / itemsPerPage));
   }, [itemOffset, itemsPerPage]);
 
   const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % searchGames.length;
+    const newOffset = (event.selected * itemsPerPage) % gamesOnThemes.length;
 
     setItemOffset(newOffset);
   };
+
   return (
     <>
-      <Games
-        aboutGame={aboutGame}
+      <GamesOnThemes
         currentItems={currentItems}
-        length={searchGames.length}
+        length={gamesOnThemes.length}
+        aboutGame={aboutGame}
       />
       <ReactPaginate
         breakLabel="..."
@@ -70,4 +70,3 @@ export default function PaginateGames({ aboutGame, itemsPerPage }) {
     </>
   );
 }
-//

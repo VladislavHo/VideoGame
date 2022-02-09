@@ -1,0 +1,27 @@
+.search-game{
+  width: 100%;
+  position: absolute;
+  top: 90px;
+  left: 0;
+
+  z-index: 100;
+  background-color: rgba(214, 214, 214, 0.986);
+  .search-wrapper{
+    max-width: 900px;
+    position: relative;
+    margin: 0 auto;
+    .material-icons-outlined.close{
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      color: rgb(172, 172, 172);
+      font-family: 'Material Icons';
+      font-size: 22px;
+      cursor: pointer;
+      &:hover{
+        color: rgb(247, 82, 82);
+
+      }
+    }
+  }
+}

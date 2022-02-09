@@ -24,8 +24,12 @@ export interface IIsAuth{
 export interface IGames{
   searchGames: any[]
   genres: any[],
-  gamesOnGenrs: any[],
-  mainGames: any[]
+  gamesOnGenres: any[],
+  themes: any[],
+  gamesOnThemes: any[],
+  mainGames: any[],
+  platforms: any[],
+  gamesOnPlatforms: any[],
 }
 
 export interface IStore{

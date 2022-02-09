@@ -35,6 +35,33 @@ export function UpdateGameOnGenresAction(payload) {
     payload
   }
 }
+export function GettingThemesAction(payload) {
+  return{
+    type: Actions.GETTING_THEMES,
+    payload
+  }
+}
+
+export function UpdateGameOnThesmesAction(payload) {
+  return{
+    type: Actions.UPDATE_GAMES_ON_GENRES,
+    payload
+  }
+}
+
+export function GettingPlatformsAction(payload) {
+  return{
+    type: Actions.GETTING_PLATFORMS,
+    payload
+  }
+}
+
+export function UpdateGameOnPlatformsAction(payload) {
+  return{
+    type: Actions.UPDATE_GAMES_ON_PLATFORMS,
+    payload
+  }
+}
 
 export function UpdateBasketAction(payload) {
   return{

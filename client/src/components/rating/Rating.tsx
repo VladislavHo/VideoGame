@@ -5,7 +5,7 @@ export default function Rating({rating}) {
   const ratingRound = Math.round(rating)
   return (
     <div className="rating">
-      {!ratingRound ? 0 : ratingRound}
+      {!ratingRound ? '-' : ratingRound}
     </div>
   )
 }

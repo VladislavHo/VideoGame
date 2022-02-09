@@ -9,8 +9,11 @@ export default function Search({ isOpen }) {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(searchGames(searchGame));
-    isOpen();
+    if(searchGame.length > 2) {
+      dispatch(searchGames(searchGame));
+      isOpen();
+    }
+
   };
 
   return (

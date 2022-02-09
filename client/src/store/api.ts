@@ -1,7 +1,7 @@
 import axios from "axios"
 import { AnyAction } from "redux"
 import { ThunkDispatch } from "redux-thunk"
-import {GettingGenresAction, UpdateBasketAction, UpdateGameOnGenresAction, UpdateMainGamesAction, UpdateSearchGamesAction, UpdateUserAction} from './actions'
+import {GettingGenresAction, GettingPlatformsAction, GettingThemesAction, UpdateBasketAction, UpdateGameOnGenresAction, UpdateGameOnPlatformsAction, UpdateMainGamesAction, UpdateSearchGamesAction, UpdateUserAction} from './actions'
 import { MAIN_GAME_ID } from "./initialStore"
 import { IStore } from "./types/store-types"
 
@@ -128,6 +128,54 @@ export function removeBasket(game) {
       .then(basketDB => dispatch(UpdateBasketAction(basketDB.data)))
     } 
     catch (error) {
+      console.log(error.message)
+    }
+  }
+}
+
+export function gettingThemes() {
+  return async (dispatch)=>{
+    try {
+      await axios.get(`${URL}/themes`)
+      .then(themes => dispatch(GettingThemesAction(themes.data)))
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+}
+
+export function gameOnThemes(id) {
+  return async (dispatch)=>{
+    try {
+      await axios.post(`${URL}/game-on-themes`, {
+        id
+      })
+      .then(genres => dispatch(UpdateGameOnGenresAction(genres.data)))
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+}
+
+export function gettingPlatforms() {
+  return async (dispatch)=>{
+    try {
+      await axios.get(`${URL}/platforms`)
+      .then(themes => dispatch(GettingPlatformsAction(themes.data)))
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+}
+
+export function gameOnPlatforms(id) {
+  return async (dispatch)=>{
+    try {
+      await axios.post(`${URL}/game-on-platforms`, {
+        id
+      })
+      .then(genres => dispatch(UpdateGameOnPlatformsAction(genres.data)))
+    } catch (error) {
       console.log(error.message)
     }
   }
