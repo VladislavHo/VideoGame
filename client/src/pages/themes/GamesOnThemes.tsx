@@ -5,6 +5,7 @@ import { MyContext } from "../../App";
 import ButtonLike from "../../components/buttons/ButtonLike";
 import Images from "../../components/images/Images";
 import Loader from "../../components/loader/Loader";
+import Paginate from "../../components/paginate/Paginate";
 import "../games.scss";
 function GamesOnThemes({ currentItems, length, aboutGame }) {
   return (
@@ -13,7 +14,7 @@ function GamesOnThemes({ currentItems, length, aboutGame }) {
         <h3>Games on themes</h3>
         <h5>Всего игр {length}</h5>
         <ul>
-          {currentItems &&
+          {!currentItems ? <Loader/> :
             currentItems.map((el, i) => (
               <li key={el.name + el.id}>
                 <Link to={`/games/${el.id}`} onClick={() => aboutGame(el)}>
@@ -27,46 +28,19 @@ function GamesOnThemes({ currentItems, length, aboutGame }) {
                 </div>
               </li>
             ))}
+          {!length && (
+            <h3>games whose rating is higher than 40 were not found</h3>
+          )}
         </ul>
       </section>
     </>
   );
 }
 
-export default function GamesOnThemesPaginate({ itemsPerPage, aboutGame }) {
+export default function GamesOnThemesPaginate({ aboutGame }) {
   const { gamesOnThemes } = useContext(MyContext);
-  const [currentItems, setCurrentItems] = useState(null);
-  const [pageCount, setPageCount] = useState(0);
-  const [itemOffset, setItemOffset] = useState(0);
+  return(
 
-  useEffect(() => {
-    const endOffset = itemOffset + itemsPerPage;
-    setCurrentItems(gamesOnThemes.slice(itemOffset, endOffset));
-    setPageCount(Math.ceil(gamesOnThemes.length / itemsPerPage));
-  }, [itemOffset, itemsPerPage]);
-
-  const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % gamesOnThemes.length;
-
-    setItemOffset(newOffset);
-  };
-
-  return (
-    <>
-      <GamesOnThemes
-        currentItems={currentItems}
-        length={gamesOnThemes.length}
-        aboutGame={aboutGame}
-      />
-      <ReactPaginate
-        breakLabel="..."
-        nextLabel="next >"
-        onPageChange={handlePageClick}
-        pageRangeDisplayed={5}
-        pageCount={pageCount}
-        previousLabel="< previous"
-        renderOnZeroPageCount={null}
-      />
-    </>
-  );
+    <Paginate elements={gamesOnThemes} Component={GamesOnThemes} aboutGame={aboutGame}/>
+  )
 }

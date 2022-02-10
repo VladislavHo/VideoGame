@@ -6,10 +6,10 @@ import { MyContext } from "../../App";
 import Loader from "../../components/loader/Loader";
 import "../games.scss";
 import ReactPaginate from "react-paginate";
+import Paginate from "../../components/paginate/Paginate";
 
 function Genres({ lenght, currentItems }) {
   const dispatch = useDispatch();
-
   return (
     <>
       <section className="games">
@@ -25,44 +25,14 @@ function Genres({ lenght, currentItems }) {
                   {el.name}
                 </Link>
               </li>
-            ))
-          }
+            ))}
         </ul>
       </section>
     </>
   );
 }
 
-export default function GenresPaginate({ itemsPerPage }) {
+export default function GenresPaginate() {
   const { genres } = useContext(MyContext);
-  const [currentItems, setCurrentItems] = useState(null);
-  const [pageCount, setPageCount] = useState(0);
-  const [itemOffset, setItemOffset] = useState(0);
-
-  useEffect(() => {
-    const endOffset = itemOffset + itemsPerPage;
-    setCurrentItems(genres.slice(itemOffset, endOffset));
-    setPageCount(Math.ceil(genres.length / itemsPerPage));
-  }, [itemOffset, itemsPerPage]);
-
-  const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % genres.length;
-
-    setItemOffset(newOffset);
-  };
-
-  return (
-    <>
-      <Genres currentItems={currentItems} lenght ={genres.lenght}/>
-      <ReactPaginate
-        breakLabel="..."
-        nextLabel="next >"
-        onPageChange={handlePageClick}
-        pageRangeDisplayed={5}
-        pageCount={pageCount}
-        previousLabel="< previous"
-        renderOnZeroPageCount={null}
-      />
-    </>
-  );
+  return <Paginate elements={genres} Component={Genres} aboutGame={null} />;
 }

@@ -1,7 +1,7 @@
 import axios from "axios"
 import { AnyAction } from "redux"
 import { ThunkDispatch } from "redux-thunk"
-import {GettingGenresAction, GettingPlatformsAction, GettingThemesAction, UpdateBasketAction, UpdateGameOnGenresAction, UpdateGameOnPlatformsAction, UpdateMainGamesAction, UpdateSearchGamesAction, UpdateUserAction} from './actions'
+import {GettingGenresAction, GettingPlatformsAction, GettingThemesAction, UpdateBasketAction, UpdateGameOnGenresAction, UpdateGameOnPlatformsAction, UpdateGameOnThemesAction, UpdateMainGamesAction, UpdateSearchGamesAction, UpdateUserAction} from './actions'
 import { MAIN_GAME_ID } from "./initialStore"
 import { IStore } from "./types/store-types"
 
@@ -150,7 +150,7 @@ export function gameOnThemes(id) {
       await axios.post(`${URL}/game-on-themes`, {
         id
       })
-      .then(genres => dispatch(UpdateGameOnGenresAction(genres.data)))
+      .then(themes => dispatch(UpdateGameOnThemesAction(themes.data)))
     } catch (error) {
       console.log(error.message)
     }

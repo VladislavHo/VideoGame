@@ -6,6 +6,9 @@ import ButtonLike from "../components/buttons/ButtonLike";
 import Image from "../components/images/Images";
 import ReactPaginate from "react-paginate";
 import "./games.scss";
+import Paginate from "../components/paginate/Paginate";
+import Loader from "../components/loader/Loader";
+
 function Games({ aboutGame, currentItems, length }) {
   return (
     <>
@@ -13,7 +16,7 @@ function Games({ aboutGame, currentItems, length }) {
         <h3>Games</h3>
         <h5>Всего найденых игр: {length}</h5>
         <ul>
-          {currentItems &&
+          {!currentItems ? <Loader/> :
             currentItems.map((el, i) => (
               <li key={el.id + el.name}>
                 <Link to={`/games/${el.id}`} onClick={() => aboutGame(el)}>
@@ -28,46 +31,19 @@ function Games({ aboutGame, currentItems, length }) {
                 </div>
               </li>
             ))}
+          {!length && (
+            <h3>you don't have any games yet</h3>
+          )}
         </ul>
       </section>
     </>
   );
 }
 
-export default function PaginateGames({ aboutGame, itemsPerPage }) {
+export default function PaginateGames({ aboutGame }) {
   const { searchGames } = useContext(MyContext);
-  const [currentItems, setCurrentItems] = useState(null);
-  const [pageCount, setPageCount] = useState(0);
-  const [itemOffset, setItemOffset] = useState(0);
-
-  useEffect(() => {
-    const endOffset = itemOffset + itemsPerPage;
-    setCurrentItems(searchGames.slice(itemOffset, endOffset));
-    setPageCount(Math.ceil(searchGames.length / itemsPerPage));
-  }, [itemOffset, itemsPerPage]);
-
-  const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % searchGames.length;
-
-    setItemOffset(newOffset);
-  };
   return (
-    <>
-      <Games
-        aboutGame={aboutGame}
-        currentItems={currentItems}
-        length={searchGames.length}
-      />
-      <ReactPaginate
-        breakLabel="..."
-        nextLabel="next >"
-        onPageChange={handlePageClick}
-        pageRangeDisplayed={5}
-        pageCount={pageCount}
-        previousLabel="< previous"
-        renderOnZeroPageCount={null}
-      />
-    </>
+    <Paginate elements={searchGames} Component={Games} aboutGame={aboutGame} />
   );
 }
 //

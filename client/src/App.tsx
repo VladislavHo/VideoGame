@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Header from "./components/header/Header";
 import Main from "./pages/Main";
@@ -39,6 +39,7 @@ export default function App() {
     platforms,
     gamesOnPlatforms,
   } = dataGames;
+  console.log(dataGames)
   const [isOpenPopap, setIsOpenPopap] = useState({
     isUserForm: false,
     isGameForm: false,
@@ -59,6 +60,7 @@ export default function App() {
 
   const isOpenUserForm = () =>
     setIsOpenPopap({ ...isOpenPopap, isUserForm: true });
+
   const isCloseUserForm = () =>
     setIsOpenPopap({ ...isOpenPopap, isUserForm: false });
 
@@ -82,6 +84,7 @@ export default function App() {
   useEffect(() => {
     setBasketLength(basket.length);
   }, [basket]);
+
   return (
     <>
       <MyContext.Provider
@@ -101,6 +104,7 @@ export default function App() {
           searchLimit: limit.searchLimit,
           genresLimit: limit.genresLimit,
           themesLimit: limit.themesLimit,
+          itemsPerPage: 10,
           openForm: isOpenUserForm,
           closeSearch: isCloseSearchGames,
         }}
@@ -129,33 +133,31 @@ export default function App() {
           <Route
             path="/games"
             element={
-              <PaginateGames aboutGame={getAboutGame} itemsPerPage={10} />
+              <PaginateGames aboutGame={getAboutGame} />
             }
           />
 
           <Route path="/games/:id" element={<AboutGame />} />
           <Route
             path="/genres"
-            element={<GenresPaginate itemsPerPage={10} />}
+            element={<GenresPaginate  />}
           />
           <Route
             path="/genres/:id"
             element={
               <GamesOnGenresPaginate
-                itemsPerPage={10}
                 aboutGame={getAboutGame}
               />
             }
           />
           <Route
             path="/themes"
-            element={<ThemesPaginate itemsPerPage={10} />}
+            element={<ThemesPaginate />}
           />
           <Route
             path="/themes/:id"
             element={
               <GamesOnThemesPaginate
-                itemsPerPage={10}
                 aboutGame={getAboutGame}
               />
             }
@@ -163,13 +165,12 @@ export default function App() {
 
           <Route
             path="/platforms"
-            element={<PlatformsPaginate itemsPerPage={10} />}
+            element={<PlatformsPaginate />}
           />
           <Route
             path="/platforms/:id"
             element={
               <GamesOnPlatformsPaginate
-                itemsPerPage={10}
                 aboutGame={getAboutGame}
               />
             }

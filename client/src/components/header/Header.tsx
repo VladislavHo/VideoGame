@@ -13,9 +13,8 @@ export default function Header({
   isOpenUserForm,
   isOpenSearchGames,
   length,
-}: any) {
-  const dispatch = useDispatch();
-  const {closeSearch} = useContext(MyContext)
+}) {
+  const {closeSearch, openForm} = useContext(MyContext)
   const { isAuth, user } = useSelector((data: any) => data);
 
   const { firstName, lastName } = user;
@@ -42,7 +41,7 @@ export default function Header({
         <Search isOpen={isOpenSearchGames} />
         <div className="nav-left_content">
           <div className="basket">
-            <Link to="/basket">
+            <Link to={isAuth && '/basket'} onClick = {!isAuth && openForm}>
               <span className="like-text">Like</span>
               <span className="material-icons-outlined like">favorite </span>
             </Link>

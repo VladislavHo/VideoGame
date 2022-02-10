@@ -42,9 +42,9 @@ export function GettingThemesAction(payload) {
   }
 }
 
-export function UpdateGameOnThesmesAction(payload) {
+export function UpdateGameOnThemesAction(payload) {
   return{
-    type: Actions.UPDATE_GAMES_ON_GENRES,
+    type: Actions.UPDATE_GAMES_ON_THEMES,
     payload
   }
 }

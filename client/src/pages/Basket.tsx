@@ -3,19 +3,21 @@ import { Link } from "react-router-dom";
 import Image from "../components/images/Images";
 import ButtonRemove from "../components/buttons/ButtonRemove";
 import { MyContext } from "../App";
-import { useDispatch, useSelector } from "react-redux";
 
 import './basket.scss'
+import Paginate from "../components/paginate/Paginate";
+import Loader from "../components/loader/Loader";
 
-export default function Basket({ aboutGame }) {
-  const { basket } = React.useContext(MyContext);
+function Basket({ aboutGame, currentItems, length }) {
+
   return (
     <div className="basket">
-    <h3>Basket</h3>
+    <h3>All Games : {length}</h3>
       <ul>
-        {basket.map((el, i) => (
+        {!currentItems ? <Loader/> :
+        currentItems.map((el, i) => (
           <li key={el.name + el.id}>
-            <Link to={`/games/${el.id}`} onClick={() => aboutGame(basket[i])}>
+            <Link to={`/games/${el.id}`} onClick={() => aboutGame(currentItems[i])}>
               {el.name}
             </Link>
             <div className="basket_screen-game">
@@ -27,4 +29,11 @@ export default function Basket({ aboutGame }) {
       </ul>
     </div>
   );
+}
+
+export default function PaginateBasket({aboutGame}) {
+  const { basket } = React.useContext(MyContext);
+  return (
+    <Paginate elements={basket} Component={Basket} aboutGame={aboutGame}/>
+  )
 }

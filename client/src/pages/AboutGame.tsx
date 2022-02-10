@@ -55,7 +55,7 @@ export default function AboutGame() {
                 Platforsms:
                 {aboutGame.platforms && aboutGame.platforms.map((el, i) => (
                   <Link
-                    to={`/platforms/${el.abbreviation}`}
+                    to={`/platforms/${el.alternative_name}`}
                     onClick={() => dispatch(gameOnPlatforms(el.id))}
                   >
                     {el.abbreviation}

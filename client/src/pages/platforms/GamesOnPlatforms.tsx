@@ -7,15 +7,15 @@ import Loader from "../../components/loader/Loader";
 import ReactPaginate from "react-paginate";
 
 import "../games.scss";
+import Paginate from "../../components/paginate/Paginate";
 
 function GamesOnPlatforms({ aboutGame, currentItems, length }) {
   return (
     <>
       <section className="games">
-        <h3>Games on platforms</h3>
         <h5>Всего игр {length}</h5>
         <ul>
-          {currentItems &&
+          {!currentItems ? <Loader/> :
             currentItems.map((el, i) => (
               <li key={el.name + el.id + i}>
                 <Link to={`/games/${el.id}`} onClick={() => aboutGame(el)}>
@@ -29,45 +29,18 @@ function GamesOnPlatforms({ aboutGame, currentItems, length }) {
                 </div>
               </li>
             ))}
+            {!length && (<h3>games whose rating is higher than 40 were not found</h3>)}
         </ul>
       </section>
     </>
   );
 }
 
-export default function GamesOnPlatformsPaginate({ itemsPerPage, aboutGame }) {
+export default function GamesOnPlatformsPaginate({ aboutGame }) {
   const { gamesOnPlatforms } = useContext(MyContext);
-  const [currentItems, setCurrentItems] = useState(null);
-  const [pageCount, setPageCount] = useState(0);
-  const [itemOffset, setItemOffset] = useState(0);
-  useEffect(() => {
-    const endOffset = itemOffset + itemsPerPage;
-    setCurrentItems(gamesOnPlatforms.slice(itemOffset, endOffset));
-    setPageCount(Math.ceil(gamesOnPlatforms.length / itemsPerPage));
-  }, [itemOffset, itemsPerPage]);
-
-  const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % gamesOnPlatforms.length;
-
-    setItemOffset(newOffset);
-  };
 
   return (
-    <>
-      <GamesOnPlatforms
-        currentItems={currentItems}
-        length={gamesOnPlatforms.length}
-        aboutGame={aboutGame}
-      />
-      <ReactPaginate
-        breakLabel="..."
-        nextLabel="next >"
-        onPageChange={handlePageClick}
-        pageRangeDisplayed={5}
-        pageCount={pageCount}
-        previousLabel="< previous"
-        renderOnZeroPageCount={null}
-      />
-    </>
-  );
+    <Paginate elements={gamesOnPlatforms} Component={GamesOnPlatforms} aboutGame={aboutGame}/>
+
+  )
 }

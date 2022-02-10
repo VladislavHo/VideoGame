@@ -8,6 +8,7 @@ import { MyContext } from "../../App";
 import Loader from "../../components/loader/Loader";
 import '../games.scss'
 import ReactPaginate from "react-paginate";
+import Paginate from "../../components/paginate/Paginate";
 function Themes({currentItems, length}) {
 
   const dispatch = useDispatch();
@@ -38,39 +39,10 @@ function Themes({currentItems, length}) {
   );
 }
 
-export default function ThemesPaginate({ itemsPerPage }) {
+export default function ThemesPaginate() {
   const { themes } = useContext(MyContext);
-  const [currentItems, setCurrentItems] = useState(null);
-  const [pageCount, setPageCount] = useState(0);
-  const [itemOffset, setItemOffset] = useState(0);
-
-  useEffect(() => {
-    const endOffset = itemOffset + itemsPerPage;
-    setCurrentItems(themes.slice(itemOffset, endOffset));
-    setPageCount(Math.ceil(themes.length / itemsPerPage));
-  }, [itemOffset, itemsPerPage]);
-
-  const handlePageClick = (event: { selected: number; }) => {
-    const newOffset = (event.selected * itemsPerPage) % themes.length;
-
-    setItemOffset(newOffset);
-  };
-
   return (
-    <>
-      <Themes
-        currentItems={currentItems}
-        length={themes.length}
-      />
-      <ReactPaginate
-        breakLabel="..."
-        nextLabel="next >"
-        onPageChange={handlePageClick}
-        pageRangeDisplayed={5}
-        pageCount={pageCount}
-        previousLabel="< previous"
-        renderOnZeroPageCount={null}
-      />
-    </>
-  );
+    <Paginate elements={themes} Component={Themes} aboutGame ={null} />
+
+  )
 }

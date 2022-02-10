@@ -1,11 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, Outlet } from "react-router-dom";
-import {
-  gameOnGenres,
-  gameOnPlatforms,
-  gameOnThemes,
-} from "../store/api";
+import { gameOnGenres, gameOnPlatforms, gameOnThemes } from "../store/api";
 import Image from "../components/images/Images";
 import ButtonLike from "../components/buttons/ButtonLike";
 import Loader from "../components/loader/Loader";
@@ -16,12 +12,8 @@ import "./main.scss";
 export default function Main({ aboutGame, setImage, openImage }) {
   const dispatch = useDispatch();
 
-  // const t = data.getFullYear()
-  const activeGameRef = useRef(null);
-
   const { mainGames, themesLimit, genresLimit, platformsLimit } =
     useContext(MyContext);
-  // const listActiveGameRef = useMemo(() => mainGames.map(() => activeGameRef), [])
   const [numberActionGames, setNumberActionGame] = useState(0);
 
   const offsetScreen = mainGames[numberActionGames]?.screenshots.slice(1, 4);
@@ -50,10 +42,7 @@ export default function Main({ aboutGame, setImage, openImage }) {
 
           <div className="main_nav-game" onClick={(e) => activeGame(e)}>
             {mainGames.map((_, i) => (
-              <span
-                key={i}
-                onClick={(e) => setNumberActionGame(i)}
-              ></span>
+              <span key={i} onClick={(e) => setNumberActionGame(i)}></span>
             ))}
           </div>
         </div>
@@ -114,8 +103,9 @@ export default function Main({ aboutGame, setImage, openImage }) {
           )}
         </div>
 
-        <Link to="/genres"><span>more</span></Link>
-
+        <Link to="/genres">
+          <span>more</span>
+        </Link>
       </section>
       <section className="themes">
         <h3>Themes</h3>
@@ -135,7 +125,9 @@ export default function Main({ aboutGame, setImage, openImage }) {
             </>
           )}
         </div>
-        <Link to="/themes"><span>more</span></Link>
+        <Link to="/themes">
+          <span>more</span>
+        </Link>
       </section>
       <section className="platforms">
         <h3>Platforms</h3>
@@ -152,9 +144,9 @@ export default function Main({ aboutGame, setImage, openImage }) {
           ))}
         </div>
 
-
-          <Link to="/platforms"><span>more</span></Link>
-
+        <Link to="/platforms">
+          <span>more</span>
+        </Link>
       </section>
     </>
   );

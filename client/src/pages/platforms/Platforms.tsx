@@ -6,6 +6,7 @@ import { MyContext } from "../../App";
 import Loader from "../../components/loader/Loader";
 import '../games.scss'
 import ReactPaginate from "react-paginate";
+import Paginate from "../../components/paginate/Paginate";
 
  function Platforms({currentItems, length}) {
 
@@ -16,11 +17,11 @@ import ReactPaginate from "react-paginate";
     <h2>Platforms</h2>
       <h5>Всего жанров: {length}</h5>
       <ul>
-        {currentItems &&
+        {currentItems && 
           currentItems.map((el, i) => (
             <li key={el.name + el.id}>
               <Link
-                to={`/platforms/${el.abbreviation}`}
+                to={`/platforms/${el.slug}`}
                 onClick={() => dispatch(gameOnPlatforms(el.id))}
               >
                 {el.name}
@@ -35,40 +36,10 @@ import ReactPaginate from "react-paginate";
   );
 }
 
-export default function PlatformsPaginate({ itemsPerPage }) {
+export default function PlatformsPaginate() {
   const { platforms } = useContext(MyContext);
-  const [currentItems, setCurrentItems] = useState(null);
-  const [pageCount, setPageCount] = useState(0);
-  const [itemOffset, setItemOffset] = useState(0);
-
-  useEffect(() => {
-    const endOffset = itemOffset + itemsPerPage;
-    setCurrentItems(platforms.slice(itemOffset, endOffset));
-    setPageCount(Math.ceil(platforms.length / itemsPerPage));
-  }, [itemOffset, itemsPerPage]);
-
-  const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % platforms.length;
-
-    setItemOffset(newOffset);
-  };
-
   return (
-    <>
-      <Platforms
-        currentItems={currentItems}
-        length={platforms.length}
+    <Paginate elements={platforms} Component={Platforms} aboutGame ={null} />
 
-      />
-      <ReactPaginate
-        breakLabel="..."
-        nextLabel="next >"
-        onPageChange={handlePageClick}
-        pageRangeDisplayed={5}
-        pageCount={pageCount}
-        previousLabel="< previous"
-        renderOnZeroPageCount={null}
-      />
-    </>
-  );
+  )
 }
