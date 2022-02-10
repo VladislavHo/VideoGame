@@ -20,7 +20,7 @@ export function createUser(user: any) {
 
         user,
 
-      }, { headers: { 'Access-Control-Allow-Origin': URL } }).then((userDB) => dispatch(UpdateUserAction({ ...userDB.data })));
+      }, { headers: { 'Access-Control-Allow-Origin': '*' } }).then((userDB) => dispatch(UpdateUserAction({ ...userDB.data })));
     } catch (error) {
       console.log(error.message);
     }
@@ -34,7 +34,7 @@ export function login(user: any) {
     try {
       await axios.post(`${URL}/auth/login`, {
         user,
-      }, { headers: { 'Access-Control-Allow-Origin': URL } }).then((userDB) => {
+      }, { headers: { 'Access-Control-Allow-Origin': '*' } }).then((userDB) => {
         const {
           id, firstName, lastName, email, basket,
         } = userDB.data;
@@ -57,7 +57,7 @@ export function searchGames(game: string, id = null) {
       await axios.post(`${URL}/search-games`, {
         game,
         id,
-      }, { headers: { 'Access-Control-Allow-Origin': URL } }).then((games) => dispatch(UpdateSearchGamesAction(games.data)));
+      }, { headers: { 'Access-Control-Allow-Origin': '*' } }).then((games) => dispatch(UpdateSearchGamesAction(games.data)));
     } catch (error) {
       console.log(error.message);
     }
@@ -71,7 +71,7 @@ export function getMainGames() {
     try {
       await axios.post(`${URL}/search-games`, {
         id: MAIN_GAME_ID,
-      }, { headers: { 'Access-Control-Allow-Origin': URL } }).then((games) => dispatch(UpdateMainGamesAction([...games.data])));
+      }, { headers: { 'Access-Control-Allow-Origin': '*' } }).then((games) => dispatch(UpdateMainGamesAction([...games.data])));
     } catch (error) {
       console.log(error.message);
     }
@@ -94,7 +94,7 @@ export function gameOnGenres(id: string | number) {
     try {
       await axios.post(`${URL}/game-on-genres`, {
         id,
-      }, { headers: { 'Access-Control-Allow-Origin': URL } })
+      }, { headers: { 'Access-Control-Allow-Origin': '*' } })
         .then((genres) => dispatch(UpdateGameOnGenresAction(genres.data)));
     } catch (error) {
       console.log(error.message);
@@ -113,7 +113,7 @@ export function updateBasket(game: any) {
       await axios.post(`${URL}/update-basket`, {
         email,
         game,
-      }, { headers: { 'Access-Control-Allow-Origin': URL } })
+      }, { headers: { 'Access-Control-Allow-Origin': '*' } })
         .then((basketDB) => dispatch(UpdateBasketAction(basketDB.data)));
     } catch (error) {
       console.log(error.message);
@@ -132,7 +132,7 @@ export function removeBasket(game) {
       await axios.post(`${URL}/remove-basket`, {
         email,
         game,
-      }, { headers: { 'Access-Control-Allow-Origin': URL } })
+      }, { headers: { 'Access-Control-Allow-Origin': '*' } })
         .then((basketDB) => dispatch(UpdateBasketAction(basketDB.data)));
     } catch (error) {
       console.log(error.message);
@@ -180,7 +180,7 @@ export function gameOnPlatforms(id: string | number) {
     try {
       await axios.post(`${URL}/game-on-platforms`, {
         id,
-      }, { headers: { 'Access-Control-Allow-Origin': URL } })
+      }, { headers: { 'Access-Control-Allow-Origin': '*' } })
         .then((genres) => dispatch(UpdateGameOnPlatformsAction(genres.data)));
     } catch (error) {
       console.log(error.message);
