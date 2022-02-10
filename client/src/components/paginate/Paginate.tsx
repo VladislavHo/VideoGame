@@ -1,25 +1,23 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
-import {MyContext} from '../../App'
+import { MyContext } from '../../context';
 
-import './paginate.scss'
+import './paginate.scss';
 
-export default function Paginate({ elements, Component, aboutGame}){
-  const { itemsPerPage } =
-    useContext(MyContext);
+export default function Paginate({ elements, Component, aboutGame }:any) {
+  const { itemsPerPage } = useContext(MyContext);
 
   const [currentItems, setCurrentItems] = useState(null);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
 
   useEffect(() => {
-    console.log(elements);
     const endOffset = itemOffset + itemsPerPage;
     setCurrentItems(elements.slice(itemOffset, endOffset));
     setPageCount(Math.ceil(elements.length / itemsPerPage));
   }, [itemOffset, itemsPerPage, elements]);
 
-  const handlePageChange = (event) => {
+  const handlePageChange = (event: { selected: number; }) => {
     const newOffset = (event.selected * itemsPerPage) % elements.length;
 
     setItemOffset(newOffset);
@@ -27,51 +25,49 @@ export default function Paginate({ elements, Component, aboutGame}){
 
   return (
     <>
-     <ReactPaginate
-           previousLabel="<"
-           nextLabel=">"
-           pageClassName="page-item"
-           pageLinkClassName="page-link"
-           previousClassName="page-item"
-           previousLinkClassName="page-link"
-           nextClassName="page-item"
-           nextLinkClassName="page-link"
-           breakLabel="..."
-           breakClassName="page-item"
-           breakLinkClassName="page-link"
-           pageCount={pageCount}
-           marginPagesDisplayed={2}
-           pageRangeDisplayed={5}
-           onPageChange={handlePageChange}
-           containerClassName="pagination"
-           activeClassName="active"
-          //  forcePage={pageOffset}
-     />
+      <ReactPaginate
+        previousLabel="<"
+        nextLabel=">"
+        pageClassName="page-item"
+        pageLinkClassName="page-link"
+        previousClassName="page-item"
+        previousLinkClassName="page-link"
+        nextClassName="page-item"
+        nextLinkClassName="page-link"
+        breakLabel="..."
+        breakClassName="page-item"
+        breakLinkClassName="page-link"
+        pageCount={pageCount}
+        marginPagesDisplayed={2}
+        pageRangeDisplayed={5}
+        onPageChange={handlePageChange}
+        containerClassName="pagination"
+        activeClassName="active"
+      />
       <Component
         currentItems={currentItems}
         length={elements.length}
         aboutGame={aboutGame}
       />
       <ReactPaginate
-           previousLabel="<"
-           nextLabel=">"
-           pageClassName="page-item"
-           pageLinkClassName="page-link"
-           previousClassName="page-item"
-           previousLinkClassName="page-link"
-           nextClassName="page-item"
-           nextLinkClassName="page-link"
-           breakLabel="..."
-           breakClassName="page-item"
-           breakLinkClassName="page-link"
-           pageCount={pageCount}
-           marginPagesDisplayed={2}
-           pageRangeDisplayed={5}
-           onPageChange={handlePageChange}
-           containerClassName="pagination"
-           activeClassName="active"
-          //  forcePage={pageOffset}
-     />
-     </>
+        previousLabel="<"
+        nextLabel=">"
+        pageClassName="page-item"
+        pageLinkClassName="page-link"
+        previousClassName="page-item"
+        previousLinkClassName="page-link"
+        nextClassName="page-item"
+        nextLinkClassName="page-link"
+        breakLabel="..."
+        breakClassName="page-item"
+        breakLinkClassName="page-link"
+        pageCount={pageCount}
+        marginPagesDisplayed={2}
+        pageRangeDisplayed={5}
+        onPageChange={handlePageChange}
+        containerClassName="pagination"
+        activeClassName="active"
+      />
+    </>
   );
 }

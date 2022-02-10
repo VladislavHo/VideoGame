@@ -1,28 +1,30 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
-import { Link, Outlet } from "react-router-dom";
-import { gameOnGenres, gameOnPlatforms, gameOnThemes } from "../store/api";
-import Image from "../components/images/Images";
-import ButtonLike from "../components/buttons/ButtonLike";
-import Loader from "../components/loader/Loader";
-import Rating from "../components/rating/Rating";
-import { MyContext } from "../App";
-import "./main.scss";
+import React, { ReactElement, useContext, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Link, Outlet } from 'react-router-dom';
+import { gameOnGenres, gameOnPlatforms, gameOnThemes } from '../store/api';
+import Image from '../components/images/Images';
+import ButtonLike from '../components/buttons/ButtonLike';
+import Loader from '../components/loader/Loader';
+import Rating from '../components/rating/Rating';
+import { MyContext } from '../context';
+import './main.scss';
 
-export default function Main({ aboutGame, setImage, openImage }) {
+interface IElemGame {
+  slug: string | null;
+  name: boolean | React.ReactChild | React.ReactFragment | React.ReactPortal;
+  id: string | null;
+}
+
+export default function Main({ aboutGame }: any): JSX.Element {
   const dispatch = useDispatch();
 
-  const { mainGames, themesLimit, genresLimit, platformsLimit } =
-    useContext(MyContext);
+  const {
+    mainGames, themesLimit, genresLimit, platformsLimit,
+  } = useContext(MyContext);
   const [numberActionGames, setNumberActionGame] = useState(0);
 
   const offsetScreen = mainGames[numberActionGames]?.screenshots.slice(1, 4);
 
-  const activeGame = (e) => {
-    if (e.target.tagName == "SPAN") {
-      e.target.classList.add("active_nav-game");
-    }
-  };
   return (
     <>
       <Outlet />
@@ -34,42 +36,41 @@ export default function Main({ aboutGame, setImage, openImage }) {
             <div className="main_game-image">
               <Image
                 image={mainGames[numberActionGames]}
-                size={"t_screenshot_med"}
+                size="t_screenshot_med"
+                index={0}
               />
               <Rating rating={mainGames[numberActionGames].rating} />
             </div>
           )}
 
-          <div className="main_nav-game" onClick={(e) => activeGame(e)}>
-            {mainGames.map((_, i) => (
-              <span key={i} onClick={(e) => setNumberActionGame(i)}></span>
-            ))}
+          <div className="main_nav-game">
+            {mainGames.map(
+              (el: { id: number }, i: number): ReactElement => (
+                <button
+                  type="button"
+                  key={el.id}
+                  onClick={(): void => setNumberActionGame(i)}
+                  aria-label="number game"
+                />
+              ),
+            )}
           </div>
         </div>
-
         <div className="small-screen">
           <ul>
             <h3>{mainGames[numberActionGames]?.name}</h3>
-            {offsetScreen &&
-              offsetScreen.map((el, i) => (
-                <>
-                  <li
-                    key={el.id + i}
-                    onClick={() => {
-                      openImage();
-                      setImage(mainGames[numberActionGames]?.screenshots);
-                    }}
-                  >
-                    {
-                      <Image
-                        image={mainGames[numberActionGames]}
-                        index={i + 1}
-                        size={"t_cover_big"}
-                      />
-                    }
+            {offsetScreen
+              && offsetScreen.map(
+                (el: { id: string | null }, i: number): ReactElement => (
+                  <li key={el.id}>
+                    <Image
+                      image={mainGames[numberActionGames]}
+                      index={i + 1}
+                      size="t_cover_big"
+                    />
                   </li>
-                </>
-              ))}
+                ),
+              )}
           </ul>
           <div className="main_control-card">
             <Link
@@ -77,7 +78,7 @@ export default function Main({ aboutGame, setImage, openImage }) {
               to={`/games/${mainGames[numberActionGames]?.id}`}
               onClick={() => aboutGame(mainGames[numberActionGames])}
             >
-              {"About game"}
+              About game
             </Link>
             <ButtonLike game={mainGames[numberActionGames]} />
           </div>
@@ -89,16 +90,18 @@ export default function Main({ aboutGame, setImage, openImage }) {
         <div className="genres-container">
           {genresLimit.length && (
             <>
-              {genresLimit.map((el, i) => (
-                <Link
-                  className="genre"
-                  to={`genres/${el.slug}`}
-                  key={el.name + el.id}
-                  onClick={() => dispatch(gameOnGenres(el.id))}
-                >
-                  {el.name}
-                </Link>
-              ))}
+              {genresLimit.map(
+                (el: IElemGame): ReactElement => (
+                  <Link
+                    className="genre"
+                    to={`genres/${el.slug}`}
+                    key={el.name + el.id}
+                    onClick={() => dispatch(gameOnGenres(el.id))}
+                  >
+                    {el.name}
+                  </Link>
+                ),
+              )}
             </>
           )}
         </div>
@@ -112,16 +115,18 @@ export default function Main({ aboutGame, setImage, openImage }) {
         <div className="themes-container">
           {themesLimit.length && (
             <>
-              {themesLimit.map((el, i) => (
-                <Link
-                  className="theme"
-                  to={`themes/${el.slug}`}
-                  key={el.name + el.id}
-                  onClick={() => dispatch(gameOnThemes(el.id))}
-                >
-                  {el.name}
-                </Link>
-              ))}
+              {themesLimit.map(
+                (el: IElemGame): ReactElement => (
+                  <Link
+                    className="theme"
+                    to={`themes/${el.slug}`}
+                    key={el.name + el.id}
+                    onClick={() => dispatch(gameOnThemes(el.id))}
+                  >
+                    {el.name}
+                  </Link>
+                ),
+              )}
             </>
           )}
         </div>
@@ -132,16 +137,18 @@ export default function Main({ aboutGame, setImage, openImage }) {
       <section className="platforms">
         <h3>Platforms</h3>
         <div className="platforms-container">
-          {platformsLimit.map((el, i) => (
-            <Link
-              className="platform"
-              to={`platforms/${el.slug}`}
-              key={el.name + el.id}
-              onClick={() => dispatch(gameOnPlatforms(el.id))}
-            >
-              {el.name}
-            </Link>
-          ))}
+          {platformsLimit.map(
+            (el: IElemGame): ReactElement => (
+              <Link
+                className="platform"
+                to={`platforms/${el.slug}`}
+                key={el.name + el.id}
+                onClick={() => dispatch(gameOnPlatforms(el.id))}
+              >
+                {el.name}
+              </Link>
+            ),
+          )}
         </div>
 
         <Link to="/platforms">

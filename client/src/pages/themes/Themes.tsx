@@ -1,27 +1,39 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import { gameOnGenres } from "../../store/api";
-import Image from "../../components/images/Images";
-import ButtonLike from "../../components/buttons/ButtonLike";
-import { MyContext } from "../../App";
-import Loader from "../../components/loader/Loader";
-import '../games.scss'
-import ReactPaginate from "react-paginate";
-import Paginate from "../../components/paginate/Paginate";
-function Themes({currentItems, length}) {
+import React, { useContext } from 'react';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { gameOnGenres } from '../../store/api';
 
+import { MyContext } from '../../context';
+import Loader from '../../components/loader/Loader';
+import '../games.scss';
+
+import Paginate from '../../components/paginate/Paginate';
+
+interface ICurrentItems {
+  name: boolean | React.ReactChild | React.ReactFragment | React.ReactPortal;
+  id: string | null;
+  slug: string | null;
+}
+
+interface IPlatforms{
+  currentItems: ICurrentItems[]
+  length: number | null
+}
+
+function Themes({ currentItems, length } : IPlatforms) {
   const dispatch = useDispatch();
   return (
-    <>
     <section className="games">
-    <h2>Themes</h2>
-      <h5>Всего тем: {length}</h5>
+      <h2>Themes</h2>
+      <h5>
+        Всего тем:
+        {length}
+      </h5>
       <ul>
         {currentItems && (
           <Loader />
         ) && (
-          currentItems.map((el, i) => (
+          currentItems.map((el:ICurrentItems) => (
             <li key={el.name + el.id}>
               <Link
                 to={`/genres/${el.slug}`}
@@ -34,15 +46,13 @@ function Themes({currentItems, length}) {
         )}
       </ul>
     </section>
-
-    </>
   );
 }
 
 export default function ThemesPaginate() {
   const { themes } = useContext(MyContext);
   return (
-    <Paginate elements={themes} Component={Themes} aboutGame ={null} />
+    <Paginate elements={themes} Component={Themes} aboutGame={null} />
 
-  )
+  );
 }

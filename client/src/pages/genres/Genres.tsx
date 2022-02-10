@@ -1,34 +1,45 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import { gameOnGenres } from "../../store/api";
-import { MyContext } from "../../App";
-import Loader from "../../components/loader/Loader";
-import "../games.scss";
-import ReactPaginate from "react-paginate";
-import Paginate from "../../components/paginate/Paginate";
+import React, { useContext } from 'react';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { gameOnGenres } from '../../store/api';
+import Loader from '../../components/loader/Loader';
+import '../games.scss';
+import { MyContext } from '../../context';
+import Paginate from '../../components/paginate/Paginate';
 
-function Genres({ lenght, currentItems }) {
+interface ICurrentItems {
+  name: boolean | React.ReactChild | React.ReactFragment | React.ReactPortal;
+  id: string | null;
+  slug: string | null;
+}
+
+interface IGenres{
+  currentItems: ICurrentItems[]
+  length: number | null
+}
+
+function Genres({ length, currentItems }:IGenres) {
   const dispatch = useDispatch();
   return (
-    <>
-      <section className="games">
-        <h5>All Genres: {lenght}</h5>
-        <ul>
-          {currentItems &&
-            currentItems.map((el, i) => (
-              <li key={el.name + el.id}>
-                <Link
-                  to={`/genres/${el.slug}`}
-                  onClick={() => dispatch(gameOnGenres(el.id))}
-                >
-                  {el.name}
-                </Link>
-              </li>
-            ))}
-        </ul>
-      </section>
-    </>
+    <section className="games">
+      <h5>
+        All Genres:
+        {length}
+      </h5>
+      <ul>
+        {!currentItems ? <Loader />
+          : currentItems.map((el:ICurrentItems) => (
+            <li key={el.name + el.id}>
+              <Link
+                to={`/genres/${el.slug}`}
+                onClick={() => dispatch(gameOnGenres(el.id))}
+              >
+                {el.name}
+              </Link>
+            </li>
+          ))}
+      </ul>
+    </section>
   );
 }
 

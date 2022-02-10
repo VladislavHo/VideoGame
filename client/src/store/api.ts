@@ -1,182 +1,186 @@
-import axios from "axios"
-import { AnyAction } from "redux"
-import { ThunkDispatch } from "redux-thunk"
-import {GettingGenresAction, GettingPlatformsAction, GettingThemesAction, UpdateBasketAction, UpdateGameOnGenresAction, UpdateGameOnPlatformsAction, UpdateGameOnThemesAction, UpdateMainGamesAction, UpdateSearchGamesAction, UpdateUserAction} from './actions'
-import { MAIN_GAME_ID } from "./initialStore"
-import { IStore } from "./types/store-types"
+import axios from 'axios';
+import { AnyAction } from 'redux';
+import { ThunkDispatch } from 'redux-thunk';
+import {
+  GettingGenresAction, GettingPlatformsAction, GettingThemesAction, UpdateBasketAction, UpdateGameOnGenresAction, UpdateGameOnPlatformsAction, UpdateGameOnThemesAction, UpdateMainGamesAction, UpdateSearchGamesAction, UpdateUserAction,
+} from './actions';
+import { MAIN_GAME_ID } from './initialStore';
+import { IStore } from './types/store-types';
 
-const URL = 'http://localhost:5000/api'
+const URL = 'http://localhost:5000/api';
+// const URL = 'https://sever-for-video-game-info.herokuapp.com/api';
 
 export function createUser(user) {
-  return async(
-    dispatch: ThunkDispatch<void, IStore, AnyAction>
-  ):Promise<void> =>{
+  return async (
+    dispatch: ThunkDispatch<void, IStore, AnyAction>,
+  ):Promise<void> => {
     try {
-      await axios.post(`${URL}/auth/registration`,{
-        user
-      }).then(user => dispatch(UpdateUserAction({...user.data})))
+      await axios.post(`${URL}/auth/registration`, {
+        user,
+      }).then((userDB) => dispatch(UpdateUserAction({ ...userDB.data })));
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
     }
-  }
+  };
 }
 
-export  function login(user) {
-  return async(
-    dispatch
-  ) =>{
+export function login(user) {
+  return async (
+    dispatch,
+  ) => {
     try {
-      await axios.post(`${URL}/auth/login`,{
-        user
-      }).then((user) =>{
-        const {id, firstName, lastName, email, basket} = user.data
-        dispatch(UpdateUserAction({id, firstName, lastName, email}))
-        dispatch(UpdateBasketAction(basket))
-      })
+      await axios.post(`${URL}/auth/login`, {
+        user,
+      }).then((userDB) => {
+        const {
+          id, firstName, lastName, email, basket,
+        } = userDB.data;
+        dispatch(UpdateUserAction({
+          id, firstName, lastName, email,
+        }));
+        dispatch(UpdateBasketAction(basket));
+      });
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
     }
-  }
+  };
 }
 
 export function searchGames(game, id = null) {
-  return async(
-    dispatch
-  )=>{
+  return async (
+    dispatch,
+  ) => {
     try {
       await axios.post(`${URL}/search-games`, {
         game,
-        id
-      }).then(games => dispatch(UpdateSearchGamesAction(games.data)))
+        id,
+      }).then((games) => dispatch(UpdateSearchGamesAction(games.data)));
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
     }
-  }
+  };
 }
 
 export function getMainGames() {
-  return async(
-    dispatch
-  ) =>{
+  return async (
+    dispatch,
+  ) => {
     try {
       await axios.post(`${URL}/search-games`, {
-          id: MAIN_GAME_ID
-      }).then(games => dispatch(UpdateMainGamesAction([...games.data])))
+        id: MAIN_GAME_ID,
+      }).then((games) => dispatch(UpdateMainGamesAction([...games.data])));
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
     }
-  }
+  };
 }
 
-
 export function gettingGenres() {
-  return async (dispatch)=>{
+  return async (dispatch) => {
     try {
       await axios.get(`${URL}/genres`)
-      .then(genres => dispatch(GettingGenresAction(genres.data)))
+        .then((genres) => dispatch(GettingGenresAction(genres.data)));
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
     }
-  }
+  };
 }
 
 export function gameOnGenres(id) {
-  return async (dispatch)=>{
+  return async (dispatch) => {
     try {
       await axios.post(`${URL}/game-on-genres`, {
-        id
+        id,
       })
-      .then(genres => dispatch(UpdateGameOnGenresAction(genres.data)))
+        .then((genres) => dispatch(UpdateGameOnGenresAction(genres.data)));
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
     }
-  }
+  };
 }
 
 export function updateBasket(game) {
-  return async(
+  return async (
     dispatch,
-    getState
-  ) =>{
-    try{
-      const {user, basket} = getState()
-      const {email} = user
-      const {id} = game
+    getState,
+  ) => {
+    try {
+      const { user } = getState();
+      const { email } = user;
       await axios.post(`${URL}/update-basket`, {
         email,
-        game
+        game,
       })
-      .then(basketDB => dispatch(UpdateBasketAction(basketDB.data)))
-    }catch(error) {
-      console.log(error.message)
+        .then((basketDB) => dispatch(UpdateBasketAction(basketDB.data)));
+    } catch (error) {
+      console.log(error.message);
     }
-  } 
+  };
 }
 
 export function removeBasket(game) {
-  return async(
+  return async (
     dispatch,
-    getState
-  ) =>{
+    getState,
+  ) => {
     try {
-      const {user} = getState()
-      const {email} = user
+      const { user } = getState();
+      const { email } = user;
       await axios.post(`${URL}/remove-basket`, {
         email,
-        game
+        game,
       })
-      .then(basketDB => dispatch(UpdateBasketAction(basketDB.data)))
-    } 
-    catch (error) {
-      console.log(error.message)
+        .then((basketDB) => dispatch(UpdateBasketAction(basketDB.data)));
+    } catch (error) {
+      console.log(error.message);
     }
-  }
+  };
 }
 
 export function gettingThemes() {
-  return async (dispatch)=>{
+  return async (dispatch) => {
     try {
       await axios.get(`${URL}/themes`)
-      .then(themes => dispatch(GettingThemesAction(themes.data)))
+        .then((themes) => dispatch(GettingThemesAction(themes.data)));
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
     }
-  }
+  };
 }
 
 export function gameOnThemes(id) {
-  return async (dispatch)=>{
+  return async (dispatch) => {
     try {
       await axios.post(`${URL}/game-on-themes`, {
-        id
+        id,
       })
-      .then(themes => dispatch(UpdateGameOnThemesAction(themes.data)))
+        .then((themes) => dispatch(UpdateGameOnThemesAction(themes.data)));
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
     }
-  }
+  };
 }
 
 export function gettingPlatforms() {
-  return async (dispatch)=>{
+  return async (dispatch) => {
     try {
       await axios.get(`${URL}/platforms`)
-      .then(themes => dispatch(GettingPlatformsAction(themes.data)))
+        .then((themes) => dispatch(GettingPlatformsAction(themes.data)));
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
     }
-  }
+  };
 }
 
 export function gameOnPlatforms(id) {
-  return async (dispatch)=>{
+  return async (dispatch) => {
     try {
       await axios.post(`${URL}/game-on-platforms`, {
-        id
+        id,
       })
-      .then(genres => dispatch(UpdateGameOnPlatformsAction(genres.data)))
+        .then((genres) => dispatch(UpdateGameOnPlatformsAction(genres.data)));
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
     }
-  }
+  };
 }

@@ -10,6 +10,11 @@
     max-width: 900px;
     position: relative;
     margin: 0 auto;
+    button{
+      border: none;
+      outline: none;
+      background-color: rgba(250, 235, 215, 0);
+    }
     .material-icons-outlined.close{
       position: absolute;
       top: 1rem;

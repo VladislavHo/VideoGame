@@ -1,84 +1,84 @@
-import {Actions} from './types/action-types'
-import { IUserInfo } from './types/store-types'
+import { Actions } from './types/action-types';
+import { IUserInfo } from './types/store-types';
 
 export function UpdateUserAction(payload) {
-  return{
+  return {
     type: Actions.UPDATE_USERINFO,
-    payload
-  }
+    payload,
+  };
 }
 
 export function UpdateIsAuthAction(payload:boolean) {
-  return{
+  return {
     type: Actions.UPDATE_IS_AUTH,
-    payload
-  }
+    payload,
+  };
 }
 
 export function UpdateSearchGamesAction(payload) {
-  return{
+  return {
     type: Actions.UPDATE_SEARCH_GAME,
-    payload
-  }
+    payload,
+  };
 }
 
 export function GettingGenresAction(payload) {
-  return{
+  return {
     type: Actions.GETTING_GENRES,
-    payload
-  }
+    payload,
+  };
 }
 
 export function UpdateGameOnGenresAction(payload) {
-  return{
+  return {
     type: Actions.UPDATE_GAMES_ON_GENRES,
-    payload
-  }
+    payload,
+  };
 }
 export function GettingThemesAction(payload) {
-  return{
+  return {
     type: Actions.GETTING_THEMES,
-    payload
-  }
+    payload,
+  };
 }
 
 export function UpdateGameOnThemesAction(payload) {
-  return{
+  return {
     type: Actions.UPDATE_GAMES_ON_THEMES,
-    payload
-  }
+    payload,
+  };
 }
 
 export function GettingPlatformsAction(payload) {
-  return{
+  return {
     type: Actions.GETTING_PLATFORMS,
-    payload
-  }
+    payload,
+  };
 }
 
 export function UpdateGameOnPlatformsAction(payload) {
-  return{
+  return {
     type: Actions.UPDATE_GAMES_ON_PLATFORMS,
-    payload
-  }
+    payload,
+  };
 }
 
 export function UpdateBasketAction(payload) {
-  return{
+  return {
     type: Actions.UPDATE_BASKET,
-    payload
-  }
+    payload,
+  };
 }
 
 export function RemoveBasketAction(payload) {
-  return{
+  return {
     type: Actions.REMOVE_BASKET,
-    payload
-  }
+    payload,
+  };
 }
 export function UpdateMainGamesAction(payload) {
-  return{
+  return {
     type: Actions.GETTING_MAIN_GAMES,
-    payload
-  }
+    payload,
+  };
 }

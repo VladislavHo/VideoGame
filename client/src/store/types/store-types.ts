@@ -1,6 +1,6 @@
 export interface IUserInfo{
   firstName: string,
-  lastName: string ,
+  lastName: string,
   email: string,
   id: string,
 
@@ -20,7 +20,7 @@ export interface IBasket{
 export interface IIsAuth{
   isAuth: boolean
 }
-// ANY!
+
 export interface IGames{
   searchGames: any[]
   genres: any[],
