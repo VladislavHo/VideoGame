@@ -7,8 +7,7 @@ import {
 import { MAIN_GAME_ID } from './initialStore';
 import { IStore } from './types/store-types';
 
-const URL = 'http://localhost:5000/api';
-// const URL = 'https://sever-for-video-game-info.herokuapp.com/api';
+const URL = 'https://game-shop-server.herokuapp.com/api';
 
 export function createUser(user: any) {
   return async (
