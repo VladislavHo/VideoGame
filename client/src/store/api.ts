@@ -9,17 +9,18 @@ import { IStore } from './types/store-types';
 
 const URL = 'https://game-shop-server.herokuapp.com/api';
 
+
+
 export function createUser(user: any) {
   return async (
     dispatch: ThunkDispatch<void, IStore, AnyAction>,
   ): Promise<void> => {
     try {
       await axios.post(`${URL}/auth/registration`, {
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-        },
+
         user,
-      }).then((userDB) => dispatch(UpdateUserAction({ ...userDB.data })));
+
+      }, { headers: { 'Access-Control-Allow-Origin': '*' } }).then((userDB) => dispatch(UpdateUserAction({ ...userDB.data })));
     } catch (error) {
       console.log(error.message);
     }
@@ -32,11 +33,8 @@ export function login(user: any) {
   ): Promise<void> => {
     try {
       await axios.post(`${URL}/auth/login`, {
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-        },
         user,
-      }).then((userDB) => {
+      }, { headers: { 'Access-Control-Allow-Origin': '*' } }).then((userDB) => {
         const {
           id, firstName, lastName, email, basket,
         } = userDB.data;
@@ -57,12 +55,9 @@ export function searchGames(game: string, id = null) {
   ): Promise<void> => {
     try {
       await axios.post(`${URL}/search-games`, {
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-        },
         game,
         id,
-      }).then((games) => dispatch(UpdateSearchGamesAction(games.data)));
+      }, { headers: { 'Access-Control-Allow-Origin': '*' } }).then((games) => dispatch(UpdateSearchGamesAction(games.data)));
     } catch (error) {
       console.log(error.message);
     }
@@ -75,11 +70,8 @@ export function getMainGames() {
   ): Promise<void> => {
     try {
       await axios.post(`${URL}/search-games`, {
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-        },
         id: MAIN_GAME_ID,
-      }).then((games) => dispatch(UpdateMainGamesAction([...games.data])));
+      }, { headers: { 'Access-Control-Allow-Origin': '*' } }).then((games) => dispatch(UpdateMainGamesAction([...games.data])));
     } catch (error) {
       console.log(error.message);
     }
@@ -101,11 +93,8 @@ export function gameOnGenres(id: string | number) {
   return async (dispatch: ThunkDispatch<void, IStore, AnyAction>): Promise<void> => {
     try {
       await axios.post(`${URL}/game-on-genres`, {
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-        },
         id,
-      })
+      }, { headers: { 'Access-Control-Allow-Origin': '*' } })
         .then((genres) => dispatch(UpdateGameOnGenresAction(genres.data)));
     } catch (error) {
       console.log(error.message);
@@ -122,12 +111,9 @@ export function updateBasket(game: any) {
       const { user } = getState();
       const { email } = user;
       await axios.post(`${URL}/update-basket`, {
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-        },
         email,
         game,
-      })
+      }, { headers: { 'Access-Control-Allow-Origin': '*' } })
         .then((basketDB) => dispatch(UpdateBasketAction(basketDB.data)));
     } catch (error) {
       console.log(error.message);
@@ -144,12 +130,9 @@ export function removeBasket(game) {
       const { user } = getState();
       const { email } = user;
       await axios.post(`${URL}/remove-basket`, {
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-        },
         email,
         game,
-      })
+      }, { headers: { 'Access-Control-Allow-Origin': '*' } })
         .then((basketDB) => dispatch(UpdateBasketAction(basketDB.data)));
     } catch (error) {
       console.log(error.message);
@@ -172,11 +155,8 @@ export function gameOnThemes(id: string | number) {
   return async (dispatch: ThunkDispatch<void, IStore, AnyAction>): Promise<void> => {
     try {
       await axios.post(`${URL}/game-on-themes`, {
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-        },
         id,
-      })
+      }, { headers: { 'Access-Control-Allow-Origin': '*' } })
         .then((themes) => dispatch(UpdateGameOnThemesAction(themes.data)));
     } catch (error) {
       console.log(error.message);
@@ -199,11 +179,8 @@ export function gameOnPlatforms(id: string | number) {
   return async (dispatch: ThunkDispatch<void, IStore, AnyAction>): Promise<void> => {
     try {
       await axios.post(`${URL}/game-on-platforms`, {
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-        },
         id,
-      })
+      }, { headers: { 'Access-Control-Allow-Origin': '*' } })
         .then((genres) => dispatch(UpdateGameOnPlatformsAction(genres.data)));
     } catch (error) {
       console.log(error.message);
