@@ -16,7 +16,7 @@ interface ICurrentItems {
 interface IGamesOnThemes{
   currentItems: ICurrentItems[]
   length: number | null
-  aboutGame: any
+  aboutGame: (game: ICurrentItems) =>React.SetStateAction<any>
 }
 
 function GamesOnThemes({ currentItems, length, aboutGame }:IGamesOnThemes) {

@@ -16,7 +16,7 @@ interface ICurrentItems {
 interface IGenres{
   currentItems: ICurrentItems[]
   length: number | null
-  aboutGame: any
+  aboutGame: (game: ICurrentItems) =>React.SetStateAction<any>
 }
 
 function Games({ aboutGame, currentItems, length }:IGenres) {

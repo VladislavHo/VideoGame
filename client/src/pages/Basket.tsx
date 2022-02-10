@@ -11,7 +11,7 @@ import './games.scss';
 interface IBasket {
   currentItems: ICurrentItems[];
   length: number;
-  aboutGame: any;
+  aboutGame: (game: ICurrentItems) =>React.SetStateAction<any>
 }
 
 interface ICurrentItems {

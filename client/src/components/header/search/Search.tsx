@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { searchGames } from "../../../store/api";
-import "./search.scss";
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { searchGames } from '../../../store/api';
+import './search.scss';
 
 export default function Search({ isOpen }: any) {
   const dispatch = useDispatch();
-  const [searchGame, setSearchGame] = useState("");
+  const [searchGame, setSearchGame] = useState('');
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -13,7 +13,7 @@ export default function Search({ isOpen }: any) {
       dispatch(searchGames(searchGame));
       isOpen();
     }
-    console.log("search");
+    console.log('search');
   };
 
   return (

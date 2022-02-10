@@ -15,7 +15,11 @@ interface IElemGame {
   id: string | null;
 }
 
-export default function Main({ aboutGame }: any): JSX.Element {
+interface IMain{
+  aboutGame: (game: IElemGame) =>React.SetStateAction<any>
+}
+
+export default function Main({ aboutGame }: IMain): JSX.Element {
   const dispatch = useDispatch();
 
   const {

@@ -17,7 +17,7 @@ interface ICurrentItems {
 interface IGamesOnPlatforms{
   currentItems: ICurrentItems[]
   length: number | null
-  aboutGame: any
+  aboutGame: (game: ICurrentItems) =>React.SetStateAction<any>
 }
 
 function GamesOnPlatforms({ aboutGame, currentItems, length }:IGamesOnPlatforms) {

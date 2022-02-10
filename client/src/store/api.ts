@@ -10,10 +10,10 @@ import { IStore } from './types/store-types';
 const URL = 'http://localhost:5000/api';
 // const URL = 'https://sever-for-video-game-info.herokuapp.com/api';
 
-export function createUser(user) {
+export function createUser(user: any) {
   return async (
     dispatch: ThunkDispatch<void, IStore, AnyAction>,
-  ):Promise<void> => {
+  ): Promise<void> => {
     try {
       await axios.post(`${URL}/auth/registration`, {
         user,
@@ -24,10 +24,10 @@ export function createUser(user) {
   };
 }
 
-export function login(user) {
+export function login(user: any) {
   return async (
-    dispatch,
-  ) => {
+    dispatch: ThunkDispatch<void, IStore, AnyAction>,
+  ): Promise<void> => {
     try {
       await axios.post(`${URL}/auth/login`, {
         user,
@@ -46,10 +46,10 @@ export function login(user) {
   };
 }
 
-export function searchGames(game, id = null) {
+export function searchGames(game: string, id = null) {
   return async (
-    dispatch,
-  ) => {
+    dispatch: ThunkDispatch<void, IStore, AnyAction>,
+  ): Promise<void> => {
     try {
       await axios.post(`${URL}/search-games`, {
         game,
@@ -63,8 +63,8 @@ export function searchGames(game, id = null) {
 
 export function getMainGames() {
   return async (
-    dispatch,
-  ) => {
+    dispatch: ThunkDispatch<void, IStore, AnyAction>,
+  ): Promise<void> => {
     try {
       await axios.post(`${URL}/search-games`, {
         id: MAIN_GAME_ID,
@@ -76,7 +76,7 @@ export function getMainGames() {
 }
 
 export function gettingGenres() {
-  return async (dispatch) => {
+  return async (dispatch: ThunkDispatch<void, IStore, AnyAction>): Promise<void> => {
     try {
       await axios.get(`${URL}/genres`)
         .then((genres) => dispatch(GettingGenresAction(genres.data)));
@@ -86,8 +86,8 @@ export function gettingGenres() {
   };
 }
 
-export function gameOnGenres(id) {
-  return async (dispatch) => {
+export function gameOnGenres(id: string | number) {
+  return async (dispatch: ThunkDispatch<void, IStore, AnyAction>): Promise<void> => {
     try {
       await axios.post(`${URL}/game-on-genres`, {
         id,
@@ -99,11 +99,11 @@ export function gameOnGenres(id) {
   };
 }
 
-export function updateBasket(game) {
+export function updateBasket(game: any) {
   return async (
-    dispatch,
-    getState,
-  ) => {
+    dispatch: ThunkDispatch<void, IStore, AnyAction>,
+    getState: () => IStore,
+  ): Promise<void> => {
     try {
       const { user } = getState();
       const { email } = user;
@@ -120,9 +120,9 @@ export function updateBasket(game) {
 
 export function removeBasket(game) {
   return async (
-    dispatch,
-    getState,
-  ) => {
+    dispatch: ThunkDispatch<void, IStore, AnyAction>,
+    getState: () => IStore,
+  ): Promise<void> => {
     try {
       const { user } = getState();
       const { email } = user;
@@ -138,7 +138,7 @@ export function removeBasket(game) {
 }
 
 export function gettingThemes() {
-  return async (dispatch) => {
+  return async (dispatch: ThunkDispatch<void, IStore, AnyAction>): Promise<void> => {
     try {
       await axios.get(`${URL}/themes`)
         .then((themes) => dispatch(GettingThemesAction(themes.data)));
@@ -148,8 +148,8 @@ export function gettingThemes() {
   };
 }
 
-export function gameOnThemes(id) {
-  return async (dispatch) => {
+export function gameOnThemes(id: string | number) {
+  return async (dispatch: ThunkDispatch<void, IStore, AnyAction>): Promise<void> => {
     try {
       await axios.post(`${URL}/game-on-themes`, {
         id,
@@ -162,7 +162,7 @@ export function gameOnThemes(id) {
 }
 
 export function gettingPlatforms() {
-  return async (dispatch) => {
+  return async (dispatch: ThunkDispatch<void, IStore, AnyAction>): Promise<void> => {
     try {
       await axios.get(`${URL}/platforms`)
         .then((themes) => dispatch(GettingPlatformsAction(themes.data)));
@@ -172,8 +172,8 @@ export function gettingPlatforms() {
   };
 }
 
-export function gameOnPlatforms(id) {
-  return async (dispatch) => {
+export function gameOnPlatforms(id: string | number) {
+  return async (dispatch: ThunkDispatch<void, IStore, AnyAction>): Promise<void> => {
     try {
       await axios.post(`${URL}/game-on-platforms`, {
         id,
