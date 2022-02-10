@@ -16,22 +16,21 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
-      button {
-        width: 3rem;
-        height: 0.5rem;
-        display: inline;
-        border: none;
-        outline: none;
-        border-radius: 20px;
-        background-color: rgba(192, 192, 192, 0.6);
-        cursor: pointer;
-        &:hover {
-          background-color: rgb(192, 192, 192);
-        }
-      }
     }
 
-
+    button {
+      width: 3rem;
+      height: 0.5rem;
+      display: inline;
+      border-radius: 20px;
+      border: none;
+      outline: none;
+      background-color: rgba(192, 192, 192, 0.6);
+      cursor: pointer;
+      &:hover {
+        background-color: rgb(192, 192, 192);
+      }
+    }
   }
   .small-screen {
     max-width: 30%;
@@ -105,6 +104,9 @@
             width: 100%;
           }
         }
+      }
+      .btn-like_container{
+        width: 50%;
       }
     }
   }

@@ -80,7 +80,9 @@ export default function Main({ aboutGame }: any): JSX.Element {
             >
               About game
             </Link>
-            <ButtonLike game={mainGames[numberActionGames]} />
+            <div className="btn-like_container">
+              <ButtonLike game={mainGames[numberActionGames]} />
+            </div>
           </div>
         </div>
       </section>

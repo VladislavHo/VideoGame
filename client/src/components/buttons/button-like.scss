@@ -1,19 +1,22 @@
-.button-like{
-  display: inline-block;
-  width: 50%;
-  padding: .75rem 0;
+.button-like {
+  width: 100%;
+  height: 100%;
+  padding: 0.75rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border: none;
   outline: none;
   border-radius: 1rem;
   color: rgb(209, 209, 209);
   text-transform: uppercase;
-  font-size: .8rem;
-  letter-spacing: .15rem;
-  transition: all .3s;
+  font-size: 0.8rem;
+  letter-spacing: 0.15rem;
+  transition: all 0.3s;
   position: relative;
   z-index: 1;
   &:after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: 0;
     left: 0;
@@ -24,14 +27,14 @@
     z-index: -2;
   }
   &:before {
-    content: '';
+    content: "";
     position: absolute;
     bottom: 0;
     left: 0;
     width: 0%;
     height: 100%;
     background-color: darken(rgba(69, 253, 100, 0.342), 15%);
-    transition: all .3s;
+    transition: all 0.3s;
     border-radius: 1rem;
     z-index: -1;
   }

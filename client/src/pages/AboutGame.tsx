@@ -63,7 +63,10 @@ export default function AboutGame() {
               <img style={{ height: `${364}px` }} src={sizeImage} alt="" />
             )}
             <Rating rating={aboutGame.rating} />
-            <ButtonLike game={aboutGame} />
+            <div className="btn-like_about-game">
+
+              <ButtonLike game={aboutGame} />
+            </div>
           </div>
           <div className="info-game">
             <h3>{aboutGame.name}</h3>

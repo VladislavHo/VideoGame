@@ -39,7 +39,7 @@ function GamesOnGenres({ aboutGame, currentItems, length }:IGamesOnGenres) {
                   <Images image={el} index={0} size="t_thumb" />
                 </div>
               </Link>
-              <div className="games-btn-like">
+              <div className="games_btn-like">
                 <ButtonLike game={el} />
               </div>
             </li>
