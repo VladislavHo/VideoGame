@@ -15,6 +15,9 @@ export function createUser(user: any) {
   ): Promise<void> => {
     try {
       await axios.post(`${URL}/auth/registration`, {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+        },
         user,
       }).then((userDB) => dispatch(UpdateUserAction({ ...userDB.data })));
     } catch (error) {
@@ -29,6 +32,9 @@ export function login(user: any) {
   ): Promise<void> => {
     try {
       await axios.post(`${URL}/auth/login`, {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+        },
         user,
       }).then((userDB) => {
         const {
@@ -51,6 +57,9 @@ export function searchGames(game: string, id = null) {
   ): Promise<void> => {
     try {
       await axios.post(`${URL}/search-games`, {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+        },
         game,
         id,
       }).then((games) => dispatch(UpdateSearchGamesAction(games.data)));
@@ -66,6 +75,9 @@ export function getMainGames() {
   ): Promise<void> => {
     try {
       await axios.post(`${URL}/search-games`, {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+        },
         id: MAIN_GAME_ID,
       }).then((games) => dispatch(UpdateMainGamesAction([...games.data])));
     } catch (error) {
@@ -89,6 +101,9 @@ export function gameOnGenres(id: string | number) {
   return async (dispatch: ThunkDispatch<void, IStore, AnyAction>): Promise<void> => {
     try {
       await axios.post(`${URL}/game-on-genres`, {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+        },
         id,
       })
         .then((genres) => dispatch(UpdateGameOnGenresAction(genres.data)));
@@ -107,6 +122,9 @@ export function updateBasket(game: any) {
       const { user } = getState();
       const { email } = user;
       await axios.post(`${URL}/update-basket`, {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+        },
         email,
         game,
       })
@@ -126,6 +144,9 @@ export function removeBasket(game) {
       const { user } = getState();
       const { email } = user;
       await axios.post(`${URL}/remove-basket`, {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+        },
         email,
         game,
       })
@@ -151,6 +172,9 @@ export function gameOnThemes(id: string | number) {
   return async (dispatch: ThunkDispatch<void, IStore, AnyAction>): Promise<void> => {
     try {
       await axios.post(`${URL}/game-on-themes`, {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+        },
         id,
       })
         .then((themes) => dispatch(UpdateGameOnThemesAction(themes.data)));
@@ -175,6 +199,9 @@ export function gameOnPlatforms(id: string | number) {
   return async (dispatch: ThunkDispatch<void, IStore, AnyAction>): Promise<void> => {
     try {
       await axios.post(`${URL}/game-on-platforms`, {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+        },
         id,
       })
         .then((genres) => dispatch(UpdateGameOnPlatformsAction(genres.data)));
